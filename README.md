@@ -39,11 +39,11 @@ Which (if any) progressive web app feature(s) does your app support?
 **[Add images/photos that show your mockup](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository) along with a very brief caption:**
 
 ### Desktop Sketch
-![](wireframes/P2DarkdownDesktop.png)
+![](wireframe/P2DarkdownDesktop.png)
 
 ### Mobile Sketches
-![](wireframes/P2DarkdownMobile.png)
-![](wireframes/P2DarkdownMobileSelect.png)
+![](wireframe/P2DarkdownMobile.png)
+![](wireframe/P2DarkdownMobileSelect.png)
 
 
 ## Testing Notes
