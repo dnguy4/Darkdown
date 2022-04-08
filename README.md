@@ -4,14 +4,17 @@ CSCI 5117, Spring 2022, [assignment description](https://canvas.umn.edu/courses/
 
 ## App Info:
 
-* Team Name: TODO
-* App Name: TODO
+* Team Name: Oysters
+* App Name: Darkdown
 * App Link: <https://TODO.firebaseapp.com/>
 
 ### Students
 
-* First Last, x500@umn.edu
-* ...
+* Ace Kaung, kaung006@umn.edu
+* David Nguyen, nguy3482@umn.edu
+* Julia Pan, pan00079@umn.edu
+* Ishan Joshi, joshi304@umn.edu
+* Sai Tallapragada, talla037@umn.edu
 
 
 ## Key Features
@@ -35,7 +38,12 @@ Which (if any) progressive web app feature(s) does your app support?
 
 **[Add images/photos that show your mockup](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository) along with a very brief caption:**
 
-![](https://media.giphy.com/media/26ufnwz3wDUli7GU0/giphy.gif)
+### Desktop Sketch
+![](wireframes/P2DarkdownDesktop.png)
+
+### Mobile Sketches
+![](wireframes/P2DarkdownMobile.png)
+![](wireframes/P2DarkdownMobileSelect.png)
 
 
 ## Testing Notes
