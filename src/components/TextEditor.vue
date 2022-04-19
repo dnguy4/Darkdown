@@ -1,22 +1,26 @@
 <template>
-  <div class="border-4 border-gray-600 h-screen overflow-hidden">
-    <editable-header @edited="updateTitle"/>
-    <ckeditor class="h-screen" 
-        :editor="editor" 
-        v-model="editorData" 
-        :config="editorConfig"  
-        @ready="onReady"></ckeditor>
-  </div>
+    <div class="desktop-grid">
+        <sidebar-desktop :fromMobile="false"> </sidebar-desktop>
+        <div class="sm:col-start-2 sm:col-span-4 border-4 border-gray-600 h-screen overflow-hidden">
+            <editable-header @edited="updateTitle"/>
+            <ckeditor class="h-screen" 
+                :editor="editor" 
+                v-model="editorData" 
+                :config="editorConfig"  
+                @ready="onReady"></ckeditor>
+        </div>
+    </div>
 </template>
 
 <script>
     import Editor from 'ckeditor5-custom-build'
     import EditableHeader from './EditableHeader.vue';
+    import SidebarDesktop from './SidebarDesktop.vue';
 
     Editor.builtinPlugins.map( plugin => console.log(plugin.pluginName) );
 
     export default {
-        components: { EditableHeader },
+        components: { EditableHeader, SidebarDesktop },
         data() {
             return {
                 editor: Editor,
