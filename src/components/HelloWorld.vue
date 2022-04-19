@@ -31,6 +31,7 @@
   </div>
 </template>
 
+
 <script>
 import loginButton from './loginButton.vue'
 export default {

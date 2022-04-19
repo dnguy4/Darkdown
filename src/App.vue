@@ -1,11 +1,12 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  
+  <sideB/>
   <router-view/>
 </template>
 
+<script setup>
+import sideB from './components/sideB.vue'
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
