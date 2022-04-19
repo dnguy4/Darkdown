@@ -1,6 +1,8 @@
 <template>
   <div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="javascript:void(0)" class="closebtn" onclick='(function() {
+  document.getElementById("mySidebar").style.width = "0";
+})()'>×</a>
   <a href="#">About</a>
   <a href="#">Services</a>
   <a href="#">Clients</a>
@@ -22,8 +24,6 @@
 </div>
 </template>
 <script setup>
-
-
 
 </script>
 <style>
