@@ -21,7 +21,7 @@
         </li>
         <li>
             <a href="#" class="sidebar-button">
-            <span>Sign In With Google</span>
+            <span>Sign Out</span>
             </a>
         </li>
     </ul>

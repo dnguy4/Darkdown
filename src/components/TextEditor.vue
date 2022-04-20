@@ -1,9 +1,10 @@
 <template>
+    <mobile-navbar class="mobile-nav-enable"> </mobile-navbar>
     <div class="desktop-grid">
         <sidebar-desktop :fromMobile="false"> </sidebar-desktop>
-        <div class="sm:col-start-2 sm:col-span-4 border-4 border-gray-600 h-screen overflow-hidden">
+        <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen">
             <editable-header @edited="updateTitle"/>
-            <ckeditor class="h-screen" 
+            <ckeditor class="h-89%"
                 :editor="editor" 
                 v-model="editorData" 
                 :config="editorConfig"  
@@ -16,11 +17,12 @@
     import Editor from 'ckeditor5-custom-build'
     import EditableHeader from './EditableHeader.vue';
     import SidebarDesktop from './SidebarDesktop.vue';
+    import MobileNavbar from './MobileNavbar.vue';
 
     Editor.builtinPlugins.map( plugin => console.log(plugin.pluginName) );
 
     export default {
-        components: { EditableHeader, SidebarDesktop },
+        components: { EditableHeader, SidebarDesktop, MobileNavbar },
         data() {
             return {
                 editor: Editor,

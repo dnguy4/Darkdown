@@ -1,16 +1,14 @@
 <template>
+  <!--
   <nav>
-    <mobile-navbar class="mobile-nav-enable"> </mobile-navbar>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </nav>
+  </nav> -->
   <router-view/>
 </template>
 
 <script>
-    import MobileNavbar from '@/components/MobileNavbar.vue'
     export default {
-        components: { MobileNavbar },
     }
 </script>
 
