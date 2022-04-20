@@ -75,6 +75,7 @@ export default {
   margin-right: 1em;
   margin-top: auto;
   margin-bottom: auto;
+  margin-left: 10px;
 }
 
 #signOutBtn:hover {
@@ -83,7 +84,7 @@ export default {
 
 .auth {
   display: flex;
-  justify-content: space-evenly;
+  width: 100%;
 }
 
 .signInContainer {
