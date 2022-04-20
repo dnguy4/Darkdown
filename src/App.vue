@@ -1,11 +1,9 @@
 <template>
   
-  <sideB/>
   <router-view/>
 </template>
 
 <script setup>
-import sideB from './components/sideB.vue'
 </script>
 <style>
 #app {

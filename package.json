@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-vue": "^4.0.0",
+    "ckeditor5-custom-build": "file:ckeditor5",
     "core-js": "^3.8.3",
     "firebase": "^9.6.10",
     "vue": "^3.2.13",

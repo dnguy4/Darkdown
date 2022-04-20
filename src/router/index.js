@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import NotFoundView from '../views/NotFoundView'
+import { auth, provider } from '@/firebaseConfig'
+import { signInWithRedirect } from "firebase/auth";
+
 
 const routes = [
   {
@@ -11,11 +14,24 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/TextEditor.vue'),
   },
+  // {
+  //   path: '/:folder/:doc',
+  //   name: 'document',
+  //   component: DocumentView,
+  //   meta: {
+  //     requiresAuth: true
+  //   }
+  // },
+  // {
+  //   path: '/settings',
+  //   name: 'settings',
+  //   component: SettingsView,
+  //   meta: {
+  //     requiresAuth: true
+  //   }
+  // },
   {
     path: '/:pathMatch(.*)*',
     name: '404',
@@ -26,6 +42,22 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const currentUser = auth.currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  if (requiresAuth && !currentUser) {
+    signInWithRedirect(auth, provider).then((result) => {
+      console.log("success " + result)
+    })
+    .catch(err => {
+      console.log(err);
+      next("/")
+    });
+    next('/'); //requiring login to reach all pages
+  }
+  else next();
 })
 
 export default router
