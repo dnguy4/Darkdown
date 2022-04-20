@@ -7,6 +7,13 @@ module.exports = {
     extend: {
       spacing: {
         '89%': '89%'
+      },
+      colors: {
+        'prussian-blue': '#12263a',
+        'rich-black': '#003637',
+        'opal': '#c5d8d1',
+        'alice-blue': '#f6fcfe',
+        'light-salmon': '#f2a283',
       }
     },
   },

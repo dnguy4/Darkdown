@@ -21,7 +21,7 @@
         </li>
         <li>
             <a href="#" class="sidebar-button">
-            <span>Sign Out</span>
+            <login-button />
             </a>
         </li>
     </ul>
@@ -29,7 +29,9 @@
 </template>
 
 <script>
+import loginButton from './loginButton.vue';
 export default {
+    components: { loginButton },
     name: "SidebarDesktop",
     props: ["fromMobile"],
     data: function() {
