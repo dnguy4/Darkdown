@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Please do not change these */
+
+.desktop-grid {
+    @apply sm:grid gap-4 grid-cols-5
+}
+
+.mobile-nav-enable {
+    @apply block sm:hidden
+}
+
+.sidebar-overlay {
+    @apply bg-black z-10 fixed top-0 bottom-0 left-0 right-0 ease-in-out transition-all duration-700 pointer-events-none
+}
+
+.overlay-closer {
+    @apply fixed top-0 bottom-0 left-0 right-0
+}
+
+.sidebar-menu-desktop {
+    @apply transform top-0 left-0 w-1/5 fixed h-screen col-start-1 hidden sm:block
+}
+
+.sidebar-menu-mobile {
+    @apply transform top-0 left-0 w-64 fixed h-screen overflow-auto ease-in-out transition-all duration-700 z-30
+}
+
+/* Feel free to change those */
+
+.sidebar-color {
+    @apply bg-slate-300
+}
+
+.open-sidebar-button {
+    @apply text-white p-3 rounded-xl bg-zinc-500 hover:bg-zinc-700 hover:font-bold duration-200
+}
+
+.sidebar-button {
+    @apply flex items-center text-left p-3 rounded-lg text-white font-normal bg-zinc-500 hover:bg-zinc-700 hover:font-bold duration-200 
+}
+
+.doc-button {
+    @apply flex items-center justify-center p-2 rounded-lg text-white font-normal bg-zinc-500 hover:bg-zinc-700 hover:font-bold duration-200 
+}
