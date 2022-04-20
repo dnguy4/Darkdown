@@ -3,7 +3,7 @@
     <mobile-navbar class="mobile-nav-enable"> </mobile-navbar>
     <div class="desktop-grid">
         <sidebar-desktop :fromMobile="false"> </sidebar-desktop>
-        <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen border-4 ">
+        <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen border-4 border-[#c5d8d1] ">
             <editable-header @edited="updateTitle" :text="this.docTitle"/>
             <ckeditor class="h-89%"
                 :editor="editor" 
