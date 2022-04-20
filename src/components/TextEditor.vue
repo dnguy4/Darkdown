@@ -5,8 +5,8 @@
         <sidebar-desktop :fromMobile="false"> </sidebar-desktop>
         <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen border-4 border-gray-600">
             <!-- <editable-header @edited="updateTitle" :text="docTitle"/> -->
-            <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500" type="text" v-model=docTitle>
-            <ckeditor class="h-89%"
+            <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" type="text" v-model=docTitle>
+            <ckeditor class="h-89% unreset"
                 :editor="editor" 
                 v-model="editorData" 
                 :config="editorConfig"  
