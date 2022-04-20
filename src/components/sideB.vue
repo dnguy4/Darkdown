@@ -1,4 +1,5 @@
-<template>
+<template >
+  <div v-if="$route.fullPath != '/'">
   <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick='(function() {
   document.getElementById("mySidebar").style.width = "0";
@@ -7,6 +8,9 @@
   <a href="#">Services</a>
   <a href="#">Clients</a>
   <a href="#">Contact</a>
+  <a>
+    <login-button />
+  </a>
 </div>
 
 <div id="main">
@@ -22,11 +26,21 @@
 })()'>☰</button>  
 </div>
 </div>
+  </div>
 </template>
-<script setup>
-
+<script>
+import loginButton from './loginButton.vue';
+export default {
+  components: { loginButton },
+  prop: {home: Boolean},
+};
 </script>
-<style>
+<style scoped>
+
+.sidebar .account:hover {
+  color: #f1f1f1;
+  cursor: pointer;
+}
 
 .sidebar {
   height: 100%;

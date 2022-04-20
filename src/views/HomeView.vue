@@ -1,19 +1,50 @@
 <template>
-  <div class="home">
-    <span class="text-3xl font-bold underline">LMAO</span>
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div v-if="!user" class="home">
+    <img class="center" alt="TooDoo logo" src="../assets/logo_orange.png" />
+    <div class="login">
+      <login-button />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import { auth } from "@/firebaseConfig";
+import LoginButton from "@/components/loginButton.vue";
 export default {
-  name: 'HomeView',
+  name: "HomeView",
   components: {
-    HelloWorld
-  }
-}
+    LoginButton,
+  },
+  beforeCreate: function () {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.$router.push("/about");
+      }
+    });
+  },
+  data: function () {
+    return {
+      user: null,
+    };
+  },
+};
 </script>
+
+<style scoped>
+.login {
+  margin-top: 2em;
+}
+
+.center {
+  padding-top: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.home {
+  text-align: center;
+  background-color: #003637;
+  min-height: 100vh;
+}
+</style>
