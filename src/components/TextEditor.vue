@@ -1,9 +1,10 @@
 <template>
+<div>
     <mobile-navbar class="mobile-nav-enable"> </mobile-navbar>
     <div class="desktop-grid">
         <sidebar-desktop :fromMobile="false"> </sidebar-desktop>
         <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen border-4 ">
-            <editable-header @edited="updateTitle"/>
+            <editable-header @edited="updateTitle" :text="this.docTitle"/>
             <ckeditor class="h-89%"
                 :editor="editor" 
                 v-model="editorData" 
@@ -11,6 +12,7 @@
                 @ready="onReady"></ckeditor>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -19,7 +21,7 @@
     import SidebarDesktop from './SidebarDesktop.vue';
     import MobileNavbar from './MobileNavbar.vue';
 
-    Editor.builtinPlugins.map( plugin => console.log(plugin.pluginName) );
+    // Editor.builtinPlugins.map( plugin => console.log(plugin.pluginName) );
 
     export default {
         components: { EditableHeader, SidebarDesktop, MobileNavbar },
@@ -34,7 +36,8 @@
                             return console.log( editor.getData() ); //replace console.log with firebase stuff
                         }
                     },
-                }
+                },
+                docTitle: 'Untitled',
             };
         },
         methods: {
@@ -46,7 +49,7 @@
                 );
             },
             updateTitle: function(newTitle) {
-                console.log(newTitle);
+                this.docTitle = newTitle;
             }
         }
     }
