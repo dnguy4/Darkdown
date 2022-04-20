@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import NotFoundView from '../views/NotFoundView'
-import { auth, provider } from '@/firebaseConfig'
-import { signInWithRedirect } from "firebase/auth";
+import { auth} from '@/firebaseConfig'
+import TextEditor from '../components/TextEditor.vue'
 
 const routes = [
   {
@@ -19,7 +19,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/TextEditor.vue'),
+    component: TextEditor,
   },
   // {
   //   path: '/:folder/:doc',
@@ -45,33 +45,19 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes
 });
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some((x) => x.meta.requiresAuth);
-  if (requiresAuth && !auth.currentUser) {
-    next("/");
-  } else {
-    next();
-  }
-});
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
 
-router.beforeEach((to, from, next) => {
-  const currentUser = auth.currentUser;
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  if (requiresAuth && !currentUser) {
-    signInWithRedirect(auth, provider).then((result) => {
-      console.log("success " + result)
-    })
-    .catch(err => {
-      console.log(err);
-      next("/")
-    });
-    next('/'); //requiring login to reach all pages
+  if (requiresAuth && !auth.currentUser) {
+    next('/')
+    // could also just fire off a redirect login here, or redirect based on a meta property!
+  } else {
+    next()
   }
-  else next();
 })
 
 export default router

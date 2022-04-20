@@ -20,9 +20,9 @@
             </ul>
         </li>
         <li>
-            <a href="#" class="sidebar-button">
+            <div class="sidebar-button">
             <login-button />
-            </a>
+            </div>
         </li>
     </ul>
   </div>
