@@ -5,7 +5,7 @@
 /* Please do not change these */
 
 .desktop-grid {
-    @apply sm:grid gap-4 grid-cols-5
+    @apply sm:grid grid-cols-5 bg-opal
 }
 
 .mobile-nav-enable {
@@ -21,7 +21,7 @@
 }
 
 .sidebar-menu-desktop {
-    @apply transform top-0 left-0 w-1/5 fixed h-screen col-start-1 hidden sm:block
+    @apply transform top-0 left-0 w-1/5 w-1/5 fixed h-screen col-start-1 hidden sm:block
 }
 
 .sidebar-menu-mobile {
@@ -39,9 +39,9 @@
 }
 
 .sidebar-button {
-    @apply flex items-center text-left p-3 rounded-lg text-opal font-normal bg-prussian-blue hover:bg-opal hover:font-bold hover:text-prussian-blue duration-200 
+    @apply flex items-center text-left p-3 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue duration-200 
 }
 
 .doc-button {
-    @apply flex items-center justify-center p-2 rounded-lg text-opal font-normal bg-prussian-blue hover:bg-opal hover:font-bold hover:text-prussian-blue duration-200
+    @apply flex items-center justify-center p-2 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue duration-200
 }

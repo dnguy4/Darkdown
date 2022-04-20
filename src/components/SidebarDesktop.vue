@@ -1,10 +1,8 @@
 <template>
   <div class="sidebar-color" :class="fromMobile ? 'sidebar-menu-mobile' : 'sidebar-menu-desktop'">
     <ul class="space-y-3 m-4">
-        <li>
-            <a href="#" class="sidebar-button">
-            <span>Darkdown</span>
-            </a>
+        <li class="content-center">
+            <img class="max-w-[50%] mx-auto" alt="TooDoo logo" src="../assets/logo_orange.png" />
         </li>
         <li>
             <button type="button" class="sidebar-button w-full" @click="showDocs=!showDocs">
