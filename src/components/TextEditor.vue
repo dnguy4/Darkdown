@@ -24,12 +24,13 @@
     import {ref} from 'vue'
     import {db, auth } from "./../firebaseConfig";
     import { collection, addDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
-    // Editor.builtinPlugins.map( plugin => console.log(plugin.pluginName) );
+
+    import {uploader} from './UploadAdapterBucket.vue';
 
     let editor = Editor
-    // let redit = ref('<p>Content of the editor.</p>')
     let editorData = ref('<p>Content of the editor.</p>')
     let editorConfig = {
+        extraPlugins: [uploader],
         autosave: {
             waitingTime: 2000, //in ms
             save( editor ) {
@@ -58,13 +59,11 @@
     }
 
     
-        const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), limit(1));
-        getDocs(q).then((data) => {
-            data.forEach((d) => {
-                console.log("here")
-                console.log(d.data().data, d.data().title)
-                docTitle.value = d.data().title
-                editorData.value = d.data().data
+    const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), limit(1));
+    getDocs(q).then((data) => {
+        data.forEach((d) => {
+            docTitle.value = d.data().title
+            editorData.value = d.data().data
 
-        })})
+    })})
 </script>
