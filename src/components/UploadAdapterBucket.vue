@@ -1,6 +1,7 @@
 <script>
-import { storage } from "@/firebaseConfig.js"
+import { storage, db, auth } from "@/firebaseConfig.js"
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { collection, doc } from "firebase/firestore";
 
 // https://dev.to/suraj975/ckeditor-image-upload-with-firebase-and-react-1pe8
 // Author: Sands
@@ -14,9 +15,9 @@ export default class UploadAdapterBucket {
     upload() {
         return this.loader.file.then((file) =>
             new Promise((resolve, reject) => {
-                //probably do images/uuid.png. Generate uuid via npm package?
-                //otherwise dumb hack -> db.collection('name').doc().id. Generates a new id without a real new doc
-                uploadBytes(ref(storage, 'images/mountains.jpg'),file).then((snapshot) => {
+                this.promiseReject = reject;
+                let uuid = (doc(collection(db, "users", auth.currentUser.uid, "notes"))).id;
+                uploadBytes(ref(storage, `users/${auth.currentUser.uid}/${uuid}`),file).then((snapshot) => {
                     return getDownloadURL(snapshot.ref);
                 }).then((downloadURL) => {
                         resolve({default: downloadURL,});
@@ -25,6 +26,11 @@ export default class UploadAdapterBucket {
                 })
             })
         );
+    }
+
+    abort() {
+        if (this.promiseReject)
+            this.promiseReject("Upload aborted by user")
     }
 }
 
