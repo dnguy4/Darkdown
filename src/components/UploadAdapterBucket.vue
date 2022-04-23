@@ -20,7 +20,10 @@ export default class UploadAdapterBucket {
                 uploadBytes(ref(storage, `users/${auth.currentUser.uid}/${uuid}`),file).then((snapshot) => {
                     return getDownloadURL(snapshot.ref);
                 }).then((downloadURL) => {
-                        resolve({default: downloadURL,});
+                        resolve({
+                            urls: {default: downloadURL,}, 
+                            customProp: "foo"
+                        });
                 }).catch((error)=>{
                     reject(error.message);
                 })
