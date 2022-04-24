@@ -23,8 +23,29 @@
     import MobileNavbar from './MobileNavbar.vue';
     import {ref} from 'vue'
     import {db, auth } from "./../firebaseConfig";
-    import { collection, addDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
+    import { collection, doc, addDoc, setDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
     // Editor.builtinPlugins.map( plugin => console.log(plugin.pluginName) );
+
+    // IMPORTANT!!!
+    const userExists = query(collection(db, "users"));
+    getDocs(userExists).then((data) => {
+        var found = false;
+        data.forEach((d) => {
+            if(d.id == auth.currentUser.uid){
+                found = true;
+            }
+        });
+        if(!found){
+            // if user info is not on database, then add user default data
+            const folders_ = [];
+            setDoc(doc(db, "users", auth.currentUser.uid), {
+                folders : folders_,
+            });
+            addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
+                // add default editor info
+            });
+        }
+    });
 
     let editor = Editor
     // let redit = ref('<p>Content of the editor.</p>')

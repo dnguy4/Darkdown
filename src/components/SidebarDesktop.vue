@@ -5,18 +5,9 @@
             <img class="max-w-[50%] mx-auto" alt="TooDoo logo" src="../assets/logo_orange.png" />
         </li>
         <li>
-            <button type="button" class="sidebar-button w-full" @click="showDocs=!showDocs">
-                <span>Folder Example</span>
-            </button>
-            <ul v-if="showDocs" class="py-2 space-y-2">
-                <li>
-                    <a href="#" class="doc-button">Doc 1</a>
-                </li>
-                <li>
-                    <a href="#" class="doc-button">Doc 2</a>
-                </li>
-            </ul>
+            <add-folder-button />
         </li>
+        <folders-layout />
         <li>
             <div class="sidebar-button">
             <login-button />
@@ -27,16 +18,13 @@
 </template>
 
 <script>
+import AddFolderButton from './AddFolderButton.vue';
 import loginButton from './loginButton.vue';
+import FoldersLayout from "@/components/FoldersLayout.vue";
 export default {
-    components: { loginButton },
+    components: { loginButton, AddFolderButton, FoldersLayout },
     name: "SidebarDesktop",
     props: ["fromMobile"],
-    data: function() {
-        return {
-            showDocs: false,
-        }
-    },
 }
 </script>
 

@@ -6,7 +6,9 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        '89%': '89%'
+        '89%': '89%',
+        '2/5': '40%',
+        '9/10': '90%',
       },
       colors: {
         'prussian-blue': '#12263a',
