@@ -1,18 +1,18 @@
 <template>
   <div class="sidebar-color" :class="fromMobile ? 'sidebar-menu-mobile' : 'sidebar-menu-desktop'">
-    <ul class="space-y-3 m-4">
-        <li class="content-center">
+    <ul class="space-y-3 h-9/10 max-h-9/10">
+        <li class="content-center pt-5">
             <img class="max-w-[50%] mx-auto" alt="TooDoo logo" src="../assets/logo_orange.png" />
         </li>
-        <li>
+        <li class="mr-2">
             <add-folder-button />
         </li>
         <folders-layout />
-        <li>
-            <div class="sidebar-button">
+    </ul>
+    <ul class="sidebar-logout-container">
+        <div class="sidebar-logout-button">
             <login-button />
-            </div>
-        </li>
+        </div>
     </ul>
   </div>
 </template>
@@ -28,6 +28,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.testing {
+    background-color: aqua;
+}
 </style>

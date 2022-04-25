@@ -2,7 +2,7 @@
   <li
     v-for="folder in folders"
     :key="folder.id"
-    class="sidebar-folder-container"
+    class="ml-4"
   >
     <folder-item v-bind:name="folder" />
   </li>
@@ -11,7 +11,7 @@
 <script>
 import FolderItem from "./FolderItem.vue";
 
-const folders_ = ["Folder Example 1", "Folder Example 2"];
+const folders_ = ["Folder Example 1", "Folder Example 2", "something"];
 
 export default {
   components: { FolderItem },

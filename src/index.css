@@ -71,6 +71,17 @@
     @apply bg-rich-black text-white px-1 mx-1 float-right rounded-lg duration-500 hover:bg-opal hover:text-prussian-blue hover:cursor-pointer
 }
 
-.folder-more-icon {
+/* .folder-more-icon {
     @apply my-auto ml-2 text-opal rounded-full hover:bg-opal hover:text-rich-black hover:cursor-pointer
+} */
+.folder-more-icon {
+    @apply my-auto ml-2 text-opal rounded-full hover:cursor-pointer
+}
+
+.sidebar-logout-container {
+    @apply bg-opal hover:bg-alice-blue
+}
+
+.sidebar-logout-button {
+    @apply h-fit items-center text-center p-3 text-prussian-blue font-normal hover:font-bold hover:text-prussian-blue duration-200 
 }
