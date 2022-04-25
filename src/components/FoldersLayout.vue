@@ -1,24 +1,29 @@
 <template>
-  <li
-    v-for="folder in folders"
-    :key="folder.id"
-    class="ml-4"
-  >
+  <li v-for="folder in folders" :key="folder.id" class="ml-4">
     <folder-item v-bind:name="folder" />
   </li>
 </template>
 
 <script>
+import { db, auth } from "@/firebaseConfig";
+import { doc,onSnapshot } from "firebase/firestore";
 import FolderItem from "./FolderItem.vue";
 
-const folders_ = ["Folder Example 1", "Folder Example 2", "something"];
+// const folders_ = ["Folder Example 1", "Folder Example 2", "something"];
 
 export default {
   components: { FolderItem },
   data: function () {
     return {
-      folders: folders_,
+      folders: false,
     };
+  },
+  created() {
+    onSnapshot(doc(db, "users", auth.currentUser.uid), (doc) => {
+      console.log(auth.currentUser.uid);
+      console.log("Current data: ", doc.data());
+      this.folders=doc.data().folders;
+    });
   },
 };
 </script>
