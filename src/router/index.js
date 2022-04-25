@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import NotFoundView from '../views/NotFoundView'
 import { auth} from '@/firebaseConfig'
-import TextEditor from '../components/TextEditor.vue'
+import MainView from '../views/MainView.vue'
 
 const routes = [
   {
@@ -19,16 +19,16 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: TextEditor,
+    component: MainView,
   },
-  // {
-  //   path: '/:folder/:doc',
-  //   name: 'document',
-  //   component: DocumentView,
-  //   meta: {
-  //     requiresAuth: true
-  //   }
-  // },
+  {
+    path: '/:folder/:doc',
+    name: 'document',
+    component: MainView,
+    meta: {
+      requiresAuth: true
+    }
+  },
   // {
   //   path: '/settings',
   //   name: 'settings',

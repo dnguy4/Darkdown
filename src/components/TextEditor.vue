@@ -1,9 +1,5 @@
 <template>
-<div>
-    <mobile-navbar class="mobile-nav-enable"> </mobile-navbar>
-    <div class="desktop-grid">
-        <sidebar-desktop :fromMobile="false"> </sidebar-desktop>
-        <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen border-4 border-gray-600">
+        <div>
             <!-- <editable-header @edited="updateTitle" :text="docTitle"/> -->
             <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" type="text" v-model=docTitle>
             <ckeditor class="h-89% unreset"
@@ -12,15 +8,11 @@
                 :config="editorConfig"  
                 @ready="onReady"></ckeditor>
         </div>
-    </div>
-</div>
 </template>
 
 <script setup>
     import Editor from 'ckeditor5-custom-build'
     // import EditableHeader from './EditableHeader.vue';
-    import SidebarDesktop from './SidebarDesktop.vue';
-    import MobileNavbar from './MobileNavbar.vue';
     import {ref} from 'vue'
     import {db, auth } from "./../firebaseConfig";
     //import { collection, addDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
