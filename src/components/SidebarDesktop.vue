@@ -6,14 +6,11 @@
         </li>
         <li>
             <button type="button" class="sidebar-button w-full" @click="showDocs=!showDocs">
-                <span>Folder Example</span>
+                <span>Default</span>
             </button>
             <ul v-if="showDocs" class="py-2 space-y-2">
-                <li>
-                    <a href="#" class="doc-button">Doc 1</a>
-                </li>
-                <li>
-                    <a href="#" class="doc-button">Doc 2</a>
+                <li v-for="doc in docArray" :key="doc.title">
+                    <a @click="goToDoc(doc.id)" class="doc-button">{{doc.title}}</a>
                 </li>
             </ul>
         </li>
@@ -26,18 +23,32 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import loginButton from './loginButton.vue';
-export default {
-    components: { loginButton },
-    name: "SidebarDesktop",
-    props: ["fromMobile"],
-    data: function() {
-        return {
-            showDocs: false,
-        }
-    },
+import { collection, query, getDocs, orderBy } from "firebase/firestore";
+import {db, auth } from "./../firebaseConfig";
+import {useRouter} from "vue-router"
+import {defineProps, ref} from 'vue'
+defineProps({
+"fromMobile": Boolean
+})
+const router = useRouter()
+let showDocs = ref(false)
+let docArray = ref([])
+let goToDoc = (id) => {
+    router.push(`/editor/${id}`)
 }
+const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), );
+    console.log(auth.currentUser)
+    getDocs(q).then((data) => {
+        let dArr = []
+        data.forEach((d) => {
+            console.log("t", d)
+            dArr.push({title:d.data().title, data:d.data().data, id: d.id})
+        })
+        console.log(dArr)
+        docArray.value = dArr
+    })
 </script>
 
 <style>
