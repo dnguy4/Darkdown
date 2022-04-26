@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import NotFoundView from '../views/NotFoundView'
+import PrintableView from '../views/PrintableView'
 import { auth} from '@/firebaseConfig'
 import TextEditor from '../components/TextEditor.vue'
 
@@ -37,6 +38,15 @@ const routes = [
   //     requiresAuth: true
   //   }
   // },
+  {
+    path: '/doc/:id/print',
+    name: 'printable',
+    component: PrintableView,
+    props: true,
+    meta: {
+          requiresAuth: true
+    }
+  },
   {
     path: '/:pathMatch(.*)*',
     name: '404',
