@@ -19,7 +19,7 @@ export default {
   beforeCreate: function () {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        this.$router.push("/about");
+        this.$router.push("/editor");
       }
     });
   },

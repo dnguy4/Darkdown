@@ -11,8 +11,8 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
+    path: '/editor',
+    name: 'editor',
     meta: {
       requiresAuth: true,
     },
@@ -22,7 +22,7 @@ const routes = [
     component: MainView,
   },
   {
-    path: '/:folder/:doc',
+    path: '/editor/:doc',
     name: 'document',
     component: MainView,
     meta: {
@@ -46,8 +46,9 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-});
+  routes,
+})
+
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
