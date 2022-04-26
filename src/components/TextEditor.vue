@@ -4,10 +4,11 @@
     <div class="desktop-grid">
         <sidebar-desktop :fromMobile="false"> </sidebar-desktop>
         <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen border-4 border-gray-600">
-            <MakePDF />
+            <MakePDF :texteditor="texteditor" />
             <!-- <editable-header @edited="updateTitle" :text="docTitle"/> -->
-            <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" type="text" v-model=docTitle>
-            <ckeditor class="h-89% unreset"
+            <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" 
+                type="text" v-model=docTitle>
+            <ckeditor class="h-89% unreset" 
                 :editor="editor" 
                 v-model="editorData" 
                 :config="editorConfig"  
@@ -25,12 +26,12 @@
     import MakePDF from './makePDF.vue';
 
     import {ref} from 'vue'
-    import {db, auth } from "./../firebaseConfig";
+    import {db, auth } from "../firebaseConfig";
     //import { collection, addDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
     import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
 
     import {uploader} from './UploadAdapterBucket.vue';
-    import imageRemoveEvent from "./ImageRemoveEvent";
+    import imageRemoveEvent from "../plugins/ImageRemoveEvent";
 
     let editor = Editor
     let editorData = ref('<p>Content of the editor.</p>')
@@ -53,6 +54,7 @@
         },
     }
     let docTitle = ref('Untitled')
+    let texteditor = ref('null');
 
     let onReady = ( editor ) => {
         // Insert the toolbar before the editable area.
@@ -71,8 +73,10 @@
                 //add as field to doc
                 console.log("Uploaded: " + data.urls.default)
         } );
+
+        texteditor.value = editor;
     }
-    
+
     const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), limit(1));
     getDocs(q).then((data) => {
         data.forEach((d) => {
