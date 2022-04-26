@@ -13,4 +13,6 @@ auth.onAuthStateChanged(() => {
     app = createApp(App).use(router).use(CKEditor).mount('#app')
   }
 });
+
 app.prototype.$workbox = wb;
+

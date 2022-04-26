@@ -1,8 +1,34 @@
 <template>
-  
-  <router-view/>
+  <div>
+    <div v-if="isOffline">
+        <p>Your internet connection seems to be offline.</p>
+        <p>Please swipe up to refresh the page once you're back online. </p>
+    </div>
+    <router-view v-else/>
+  </div>
 </template>
 
+<script>
+export default {
+  computed: function() {
+    return {
+      isOffline: navigator.onLine,
+    }
+  },
+  created() {
+  if (this.$workbox) {
+    this.$workbox.addEventListener('offline', () => {
+      this.isOffline = true;
+
+    });
+
+    this.$workbox.addEventListener('online', () => {
+      this.isOffline = false;
+    });
+  }
+}
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
