@@ -2,7 +2,7 @@
         <div>
             <router-link :to="`${$route.path}/print`">Printable View</router-link>
             <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" 
-                type="text" v-model=docTitle>
+                type="text" v-model=docTitle @change="saveTitle">
             <ckeditor class="h-89% unreset" 
                 :editor="editor" 
                 v-model="editorData" 
@@ -18,7 +18,7 @@
     import {ref} from 'vue'
     import {useRoute, useRouter} from 'vue-router'
     import {db, auth, storage } from "../firebaseConfig";
-    import { doc, getDoc } from "firebase/firestore";
+    import { doc, getDoc, updateDoc, Timestamp } from "firebase/firestore";
     import { ref as fsref, deleteObject } from "firebase/storage";
 
     import {uploader} from './UploadAdapterBucket.vue';
@@ -29,22 +29,24 @@
     let editorConfig = {
         extraPlugins: [uploader],
         autosave: {
-            waitingTime: 2000, //in ms
+            waitingTime: 1000, //in ms
             save( editor ) {
-                console.log("saved")
-                // if (docTitle.value != "Untitled"){
-                //     console.log("do firebase call")
-                //     addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
-                //         title: docTitle.value,
-                //         data: editor.getData(),
-                //         timestamp: Timestamp.fromDate(new Date())
-                //         });
-                // }
-                console.log( editor.getData() ); //replace console.log with firebase stuff
+                updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
+                    title: docTitle.value,
+                    data: editor.getData(),
+                    timestamp: Timestamp.fromDate(new Date())
+                })
             }
         },
     }
+
     let docTitle = ref('Untitled')
+    function saveTitle(){
+        updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
+            title: docTitle.value,
+            timestamp: Timestamp.fromDate(new Date())
+         })
+    }
 
     let onReady = ( editor ) => {
         // Insert the toolbar before the editable area.
