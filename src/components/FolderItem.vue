@@ -14,7 +14,7 @@
       </button>
       <!-- <i v-if="hover" class="material-icons folder-more-icon"> more_horiz </i> -->
       <i
-        v-if="hover"
+        v-if="hover && name != 'default'"
         @click="deleteFolder"
         class="material-icons folder-more-icon"
       >
