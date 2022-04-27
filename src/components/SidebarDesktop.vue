@@ -39,14 +39,11 @@ let goToDoc = (id) => {
     router.push(`/editor/${id}`)
 }
 const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), );
-    console.log(auth.currentUser)
     getDocs(q).then((data) => {
         let dArr = []
         data.forEach((d) => {
-            console.log("t", d)
             dArr.push({title:d.data().title, data:d.data().data, id: d.id})
         })
-        console.log(dArr)
         docArray.value = dArr
     })
 </script>

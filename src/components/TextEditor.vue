@@ -16,9 +16,10 @@
     import Editor from 'ckeditor5-custom-build'
 
     import {ref} from 'vue'
-    import {db, auth } from "../firebaseConfig";
-    //import { collection, addDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
-    import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
+    import {useRoute, useRouter} from 'vue-router'
+    import {db, auth, storage } from "../firebaseConfig";
+    import { doc, getDoc } from "firebase/firestore";
+    import { ref as fsref, deleteObject } from "firebase/storage";
 
     import {uploader} from './UploadAdapterBucket.vue';
     import imageRemoveEvent from "../plugins/ImageRemoveEvent";
@@ -53,7 +54,7 @@
         );
 
         //2nd arg is a callback, can use to remove img url from doc field
-        new imageRemoveEvent(editor, (f) => {console.log(f)});
+        new imageRemoveEvent(editor, removeImageCallback);
 
         //Called when image finishes uploading, only for file uploads
         const imageUploadEditing = editor.plugins.get( 'ImageUploadEditing' );
@@ -64,11 +65,31 @@
         } );
     }
 
-    const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), limit(1));
-    getDocs(q).then((data) => {
-        data.forEach((d) => {
+    const baseUrl = "https://firebasestorage.googleapis.com/v0/b/darkdown-44b5e.appspot.com/o/";
+    function removeImageCallback(removedImagesSrc) {
+        removedImagesSrc.forEach(imageUrl => {
+            if (imageUrl.includes("firebasestorage")){
+                let imagePath = imageUrl.replace(baseUrl,"");
+                const indexOfEndPath = imagePath.indexOf("?");
+                imagePath = imagePath.substring(0,indexOfEndPath);
+                imagePath = imagePath.replace(/%2F/g,"/");
+                imagePath = imagePath.replace(/%20/g," ");
+                deleteObject(fsref(storage, imagePath)).catch((error) => {
+                    console.log(error)
+                })
+            }
+        })
+    }
+
+    const route = useRoute();
+    const router = useRouter()
+    getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc)).then( (d) => {
+        if (d.data()){
             docTitle.value = d.data().title
             editorData.value = d.data().data
-        })
+        } else {
+            router.push({ name: '404', replace: true })
+        }
     })
+
 </script>

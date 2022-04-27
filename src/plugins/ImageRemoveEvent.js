@@ -3,8 +3,6 @@
  * original_author: MD. Shibbir Ahmed <shibbirweb@gmail.com> (http://shibbir.me/)
  *
  */
-import { storage } from "@/firebaseConfig";
-import { ref, deleteObject } from "firebase/storage";
 
  export default class ImageRemoveEvent {
 
@@ -66,23 +64,8 @@ import { ref, deleteObject } from "firebase/storage";
                 removedImagesSrc.push(removedNode.getAttribute('src'))
             })
 
-            console.log(event)
-            const baseUrl = "https://firebasestorage.googleapis.com/v0/b/darkdown-44b5e.appspot.com/o/";
+            
             //console.log(removedImagesSrc, removedImageNodes)
-            removedImagesSrc.forEach(imageUrl => {
-                if (imageUrl.includes("firebasestorage")){
-                    console.log("Deleting " + imageUrl)
-                    
-                    let imagePath = imageUrl.replace(baseUrl,"");
-                    const indexOfEndPath = imagePath.indexOf("?");
-                    imagePath = imagePath.substring(0,indexOfEndPath);
-                    imagePath = imagePath.replace(/%2F/g,"/");
-                    imagePath = imagePath.replace(/%20/g," ");
-                    deleteObject(ref(storage, imagePath)).catch((error) => {
-                        console.log(error)
-                    })
-                }
-            })
             return this.callback(removedImagesSrc)
         })
     }
