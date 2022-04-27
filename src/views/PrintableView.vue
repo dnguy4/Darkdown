@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen border-4 border-gray-600">
+    <div class="sm:col-start-2">
         <span class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 w-full" 
             type="text">{{docTitle}}</span>
         <ckeditor class="h-89% unreset"
@@ -21,11 +21,21 @@
     let editor = Editor
     let editorData = ref('<p>Content of the editor.</p>')
     let editorConfig = {
+        autosave: {
+            waitingTime: 2000, //in ms
+            save(  ) {
+                setTimeout(function() { 
+                    window.print(); 
+                }, 0);
+            }
+        }
     }
     let docTitle = ref('Untitled')
+    let texteditor = ref('null');
 
     let onReady = ( editor ) => {
         editor.enableReadOnlyMode('printable-lock');
+        texteditor.value = editor;
     }
     
     const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), limit(1));
@@ -33,6 +43,7 @@
         data.forEach((d) => {
             docTitle.value = d.data().title
             editorData.value = d.data().data
+            
         })
     })
 </script>

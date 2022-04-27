@@ -66,10 +66,13 @@ import { ref, deleteObject } from "firebase/storage";
                 removedImagesSrc.push(removedNode.getAttribute('src'))
             })
 
+            console.log(event)
             const baseUrl = "https://firebasestorage.googleapis.com/v0/b/darkdown-44b5e.appspot.com/o/";
             //console.log(removedImagesSrc, removedImageNodes)
             removedImagesSrc.forEach(imageUrl => {
                 if (imageUrl.includes("firebasestorage")){
+                    console.log("Deleting " + imageUrl)
+                    
                     let imagePath = imageUrl.replace(baseUrl,"");
                     const indexOfEndPath = imagePath.indexOf("?");
                     imagePath = imagePath.substring(0,indexOfEndPath);

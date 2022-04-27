@@ -12,6 +12,37 @@ function addStyles(win, styles) {
   });
 }
 
+/*
+ * @problem: Sometimes .cloneNode(true) doesn't copy the styles and your are left
+ * with everything copied but no styling applied to the clonedNode (it looks plain / ugly). Solution:
+ * 
+ * @solution: call synchronizeCssStyles to copy styles from source (src) element to
+ * destination (dest) element.
+ * 
+ * @author: Luigi D'Amico (www.8bitplatoon.com)
+ * 
+ */
+function synchronizeCssStyles(src, destination, recursively) {
+
+    // if recursively = true, then we assume the src dom structure and destination dom structure are identical (ie: cloneNode was used)
+
+    // window.getComputedStyle vs document.defaultView.getComputedStyle 
+    // @TBD: also check for compatibility on IE/Edge 
+    destination.style.cssText = document.defaultView.getComputedStyle(src, "").cssText;
+
+    if (recursively) {
+        var vSrcElements = src.getElementsByTagName("*");
+        var vDstElements = destination.getElementsByTagName("*");
+
+        for (var i = vSrcElements.length; i--;) {
+            var vSrcElement = vSrcElements[i];
+            var vDstElement = vDstElements[i];
+//          console.log(i + " >> " + vSrcElement + " :: " + vDstElement);
+            vDstElement.style.cssText = document.defaultView.getComputedStyle(vSrcElement, "").cssText;
+        }
+    }
+}
+
 const VueHtmlToPaper = {
   install(app, options = {}) {
     app.config.globalProperties.$htmlToPaper = (
@@ -45,18 +76,31 @@ const VueHtmlToPaper = {
 
       const win = ifprint.contentWindow;
 
+      // win.document.write(`
+      //   <!DOCTYPE html>
+      //     <head>
+      //       <title>${window.document.title}</title>
+      //     </head>
+      //     <body>
+      //       ${element.outerHTML}
+      //     </body>
+      //   </html>
+      // `);
+
       win.document.write(`
         <!DOCTYPE html>
           <head>
             <title>${window.document.title}</title>
           </head>
           <body>
-            ${element.innerHTML}
           </body>
         </html>
       `);
+      const newNode = win.document.importNode(element, true);
+      win.document.body.appendChild(newNode);
 
       addStyles(win, styles);
+      synchronizeCssStyles(element, newNode, true);
       
 
       setTimeout(() => {

@@ -14,17 +14,15 @@ const routes = [
   {
     path: '/editor',
     name: 'editor',
+    component: MainView,
     meta: {
       requiresAuth: true,
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: MainView,
   },
   {
     path: '/editor/:doc',
     name: 'document',
+    props: true,
     component: MainView,
     meta: {
       requiresAuth: true
@@ -39,7 +37,7 @@ const routes = [
   //   }
   // },
   {
-    path: '/doc/:id/print',
+    path: '/editor/:doc/print',
     name: 'printable',
     component: PrintableView,
     props: true,

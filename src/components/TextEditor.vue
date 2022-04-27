@@ -13,14 +13,15 @@
 </template>
 
 <script setup>
+/* eslint-disable */
     import Editor from 'ckeditor5-custom-build'
     // import EditableHeader from './EditableHeader.vue';
     import MakePDF from './makePDF.vue';
-    
+
     import {ref} from 'vue'
     import {db, auth } from "../firebaseConfig";
-    //import { collection, addDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
-    import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
+    import { collection, addDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
+    //import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
 
     import {uploader} from './UploadAdapterBucket.vue';
     import imageRemoveEvent from "../plugins/ImageRemoveEvent";
