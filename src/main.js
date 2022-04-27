@@ -4,15 +4,12 @@ import router from './router'
 import { auth } from "@/firebaseConfig";
 import './index.css'
 import CKEditor from '@ckeditor/ckeditor5-vue';
-import wb from './registerServiceWorker'
+// import wb from './registerServiceWorker'
 
 let app;
 
 auth.onAuthStateChanged(() => {
   if (!app) {
-    app = createApp(App).use(router).use(CKEditor).mount('#app')
+    app = createApp(App).use(router).use(CKEditor).mount('#app');
   }
 });
-
-app.prototype.$workbox = wb;
-

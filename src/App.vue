@@ -1,21 +1,24 @@
 <template>
-  <div>
+  <div> 
+    <!--
     <div v-if="isOffline">
         <p>Your internet connection seems to be offline.</p>
         <p>Please swipe up to refresh the page once you're back online. </p>
-    </div>
-    <router-view v-else/>
+    </div> 
+    -->
+    <router-view />
   </div>
 </template>
 
 <script>
-export default {
+export default { /*
   computed: function() {
     return {
       isOffline: navigator.onLine,
     }
   },
   created() {
+    console.log(this.$workbox);
   if (this.$workbox) {
     this.$workbox.addEventListener('offline', () => {
       this.isOffline = true;
@@ -26,7 +29,7 @@ export default {
       this.isOffline = false;
     });
   }
-}
+} */
 }
 </script>
 <style>

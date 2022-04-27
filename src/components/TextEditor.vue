@@ -1,5 +1,5 @@
 <template>
-    <div class="h-89%">
+    <div class="h-89%" :class="sidebar ? 'pointer-events-none' : 'pointer-events-auto'">
         <!-- <editable-header @edited="updateTitle" :text="docTitle"/> -->
         <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" type="text" v-model=docTitle>
         <ckeditor class="h-full unreset"
@@ -13,7 +13,7 @@
 <script setup>
     import Editor from 'ckeditor5-custom-build'
     // import EditableHeader from './EditableHeader.vue';
-    import {watch, defineProps, ref, toRef} from 'vue'
+    import {defineProps, ref, toRef} from 'vue'
     import {db, auth } from "./../firebaseConfig";
     //import { collection, addDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
     import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
@@ -25,15 +25,7 @@
         sidebarOpen: Boolean,
     });
     const sidebar = toRef(props, 'sidebarOpen')
-
-    watch(sidebar, (currentValue, oldValue) => {
-        console.log("new", currentValue);
-        console.log("old", oldValue);
-    });
-
     
-
-
     let editor = Editor
     let editorData = ref('<p>Content of the editor.</p>')
     let editorConfig = {

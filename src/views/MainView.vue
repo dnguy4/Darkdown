@@ -13,6 +13,7 @@
 
 <script setup>
     import { useRoute } from 'vue-router'
+    import {ref} from 'vue'
     import SidebarDesktop from '@/components/SidebarDesktop.vue';
     import MobileNavbar from '@/components/MobileNavbar.vue';
     import TextEditor from '@/components/TextEditor.vue';
@@ -22,16 +23,14 @@
     const doc = route.params['doc'];
 
     let notesEmpty = false;
-    let sidebarToggle = false;
+    let sidebarToggle = ref(false);
     if (!doc) {
         notesEmpty = true;
     }
 
     function editorReadOnly(value) {
-      sidebarToggle = value;
+      sidebarToggle.value = value;
     }
-    
-
 </script>
 
 <style>
