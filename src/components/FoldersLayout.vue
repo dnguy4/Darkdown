@@ -20,8 +20,6 @@ export default {
   },
   created() {
     onSnapshot(doc(db, "users", auth.currentUser.uid), (doc) => {
-      console.log(auth.currentUser.uid);
-      console.log("Current data: ", doc.data());
       this.folders=doc.data().folders;
     });
   },

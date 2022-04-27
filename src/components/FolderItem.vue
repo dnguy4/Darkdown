@@ -22,6 +22,7 @@
       </i>
     </div>
     <ul v-if="showDocs" class="py-2 space-y-2">
+      {{documents}}
       <li>
         <a href="#" class="doc-button">Doc 1</a>
       </li>
@@ -35,14 +36,22 @@
 <script>
 import { auth } from "@/firebaseConfig";
 import { db } from "@/firebaseConfig";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
 export default {
   props: ["name"],
   data: function () {
     return {
       showDocs: false,
       hover: false,
+      documents: false,
     };
+  },
+  created() {
+    onSnapshot(collection(db, "users", auth.currentUser.uid,"notes"), (dbData) => {
+      console.log(auth.currentUser.uid);
+      console.log("Current data: ", dbData);
+      // this.documents = dbData.data().folders;
+    });
   },
   methods: {
     deleteFolder: async function () {
