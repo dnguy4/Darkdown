@@ -22,12 +22,9 @@
       </i>
     </div>
     <ul v-if="showDocs" class="py-2 space-y-2">
-      {{documents}}
-      <li>
-        <a href="#" class="doc-button">Doc 1</a>
-      </li>
-      <li>
-        <a href="#" class="doc-button">Doc 2</a>
+      <li v-for="docId in documents" :key="docId.id">
+        <!-- <a href="#" class="doc-button">Doc 1</a> -->
+        <document-item v-bind:docId="docId" />
       </li>
     </ul>
   </div>
@@ -36,8 +33,19 @@
 <script>
 import { auth } from "@/firebaseConfig";
 import { db } from "@/firebaseConfig";
-import { collection, doc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  updateDoc,
+  onSnapshot,
+  where,
+  query,
+  getDocs
+} from "firebase/firestore";
+import DocumentItem from "./DocumentItem.vue";
 export default {
+  components: { DocumentItem },
   props: ["name"],
   data: function () {
     return {
@@ -47,11 +55,19 @@ export default {
     };
   },
   created() {
-    onSnapshot(collection(db, "users", auth.currentUser.uid,"notes"), (dbData) => {
-      console.log(auth.currentUser.uid);
-      console.log("Current data: ", dbData);
-      // this.documents = dbData.data().folders;
-    });
+    onSnapshot(
+      query(
+        collection(db, "users", auth.currentUser.uid, "notes"),
+        where("folder", "==", this.name)
+      ),
+      (dbData) => {
+        let ids = [];
+        dbData.docs.forEach((e) => {
+          ids.push(e.id);
+        });
+        this.documents = ids;
+      }
+    );
   },
   methods: {
     deleteFolder: async function () {
@@ -61,6 +77,26 @@ export default {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
+          // change the folder of all the notes that is associated with this folder
+          const q = query(
+            collection(db, "users", auth.currentUser.uid, "notes"),
+            where("folder", "==", this.name)
+          );
+          getDocs(q).then((dbData) => {
+            dbData.docs.forEach((e) => {
+              const eRef = doc(
+                db,
+                "users",
+                auth.currentUser.uid,
+                "notes",
+                e.id
+              );
+              updateDoc(eRef, {
+                folder: "default",
+              });
+            });
+          });
+
           var data = docSnap.data();
           var folders_ = data.folders;
           let newFolderArr = [];
@@ -69,11 +105,9 @@ export default {
               newFolderArr.push(arr);
             }
           });
-          const docRef = doc(db, "users", auth.currentUser.uid);
           await updateDoc(docRef, {
             folders: newFolderArr,
           });
-          // delete all the notes that is associated with this folder
         } else {
           console.log("No such document!");
         }

@@ -37,12 +37,9 @@
         });
         if(!found){
             // if user info is not on database, then add user default data
-            const folders_ = [];
+            const folders_ = ['default'];
             setDoc(doc(db, "users", auth.currentUser.uid), {
                 folders : folders_,
-            });
-            addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
-                // add default editor info
             });
         }
     });
@@ -82,7 +79,6 @@
         const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), limit(1));
         getDocs(q).then((data) => {
             data.forEach((d) => {
-                console.log("here")
                 console.log(d.data().data, d.data().title)
                 docTitle.value = d.data().title
                 editorData.value = d.data().data
