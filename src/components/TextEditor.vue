@@ -1,8 +1,9 @@
 <template>
         <div>
-            <!-- <editable-header @edited="updateTitle" :text="docTitle"/> -->
-            <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" type="text" v-model=docTitle>
-            <ckeditor class="h-89% unreset"
+            <router-link :to="`${$route.path}/print`">Printable View</router-link>
+            <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" 
+                type="text" v-model=docTitle @change="saveTitle">
+            <ckeditor class="h-89% unreset" 
                 :editor="editor" 
                 v-model="editorData" 
                 :config="editorConfig"  
@@ -12,35 +13,38 @@
 
 <script setup>
     import Editor from 'ckeditor5-custom-build'
-    // import EditableHeader from './EditableHeader.vue';
+
     import {ref} from 'vue'
-    import {db, auth } from "./../firebaseConfig";
-    import { collection, query, getDocs, orderBy, limit } from "firebase/firestore";
+    import {useRoute, useRouter, onBeforeRouteUpdate} from 'vue-router'
+    import {db, auth } from "../firebaseConfig";
+    import { doc, getDoc, updateDoc, Timestamp, arrayUnion } from "firebase/firestore";
+
 
     import {uploader} from './UploadAdapterBucket.vue';
-    import imageRemoveEvent from "./ImageRemoveEvent";
 
     let editor = Editor
     let editorData = ref('<p>Content of the editor.</p>')
     let editorConfig = {
         extraPlugins: [uploader],
         autosave: {
-            waitingTime: 2000, //in ms
+            waitingTime: 1000, //in ms
             save( editor ) {
-                console.log("saved")
-                // if (docTitle.value != "Untitled"){
-                //     console.log("do firebase call")
-                //     addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
-                //         title: docTitle.value,
-                //         data: editor.getData(),
-                //         timestamp: Timestamp.fromDate(new Date())
-                //         });
-                // }
-                console.log( editor.getData() ); //replace console.log with firebase stuff
+                updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
+                    title: docTitle.value,
+                    data: editor.getData(),
+                    timestamp: Timestamp.fromDate(new Date())
+                })
             }
         },
     }
+
     let docTitle = ref('Untitled')
+    function saveTitle(){
+        updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
+            title: docTitle.value,
+            timestamp: Timestamp.fromDate(new Date())
+         })
+    }
 
     let onReady = ( editor ) => {
         // Insert the toolbar before the editable area.
@@ -49,23 +53,39 @@
             editor.ui.getEditableElement()
         );
 
-        //2nd arg is a callback, can use to remove img url from doc field
-        new imageRemoveEvent(editor, (f) => {console.log(f)});
-
         //Called when image finishes uploading, only for file uploads
         const imageUploadEditing = editor.plugins.get( 'ImageUploadEditing' );
         // eslint-disable-next-line 
         imageUploadEditing.on( 'uploadComplete', ( evt, { data, imageElement } ) => {
-                //add as field to doc
+            
                 console.log("Uploaded: " + data.urls.default)
+                updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
+                    imageurls: arrayUnion( data.urls.default)
+                });
+
         } );
     }
-    
-    const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), limit(1));
-    getDocs(q).then((data) => {
-        data.forEach((d) => {
+
+
+    const route = useRoute();
+    const router = useRouter()
+
+    onBeforeRouteUpdate(async (to, from) => {
+        if (to.params.doc !== from.params.doc) {
+            fetchDocumentData(to.params.doc)
+        }
+    })
+
+    async function fetchDocumentData(docId){
+        let d = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', docId));
+        if (d.data()){
             docTitle.value = d.data().title
             editorData.value = d.data().data
-        })
-    })
+        } else {
+            router.push({ name: '404', replace: true })
+        }
+    }
+
+    //Load in inital data
+    fetchDocumentData(route.params.doc);
 </script>

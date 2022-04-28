@@ -8,8 +8,9 @@
 </template>
 
 <script>
-import { db, auth } from "@/firebaseConfig";
+import { db, auth, storage } from "@/firebaseConfig";
 import { doc, onSnapshot, deleteDoc, getDoc } from "firebase/firestore";
+import { ref as fsref, deleteObject } from "firebase/storage";
 
 export default {
   props: ["docId"],
@@ -43,6 +44,7 @@ export default {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
+          await this.deleteDocImages(docSnap);
           await deleteDoc(
             doc(db, "users", auth.currentUser.uid, "notes", this.docId)
           );
@@ -50,6 +52,23 @@ export default {
           console.log("No such document!");
         }
       }
+    },
+    deleteDocImages: async function(document){
+      const baseUrl = "https://firebasestorage.googleapis.com/v0/b/darkdown-44b5e.appspot.com/o/";
+      let removedImagesSrc = document.data().imageurls;
+      removedImagesSrc.forEach(imageUrl => {
+          if (imageUrl.includes("firebasestorage")){
+            console.log("Deleting:", imageUrl)
+            let imagePath = imageUrl.replace(baseUrl,"");
+            const indexOfEndPath = imagePath.indexOf("?");
+            imagePath = imagePath.substring(0,indexOfEndPath);
+            imagePath = imagePath.replace(/%2F/g,"/");
+            imagePath = imagePath.replace(/%20/g," ");
+            deleteObject(fsref(storage, imagePath)).catch((error) => {
+                console.log(error)
+            })
+          }
+      })
     },
   },
 };
