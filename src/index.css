@@ -85,3 +85,7 @@
 .sidebar-logout-button {
     @apply h-fit items-center text-center p-3 text-prussian-blue font-normal hover:font-bold hover:text-prussian-blue duration-200 
 }
+
+.large-button {
+    @apply flex items-center text-left p-3 rounded-lg font-normal text-alice-blue bg-rich-black duration-200  hover:bg-prussian-blue hover:font-bold hover:scale-110
+}
