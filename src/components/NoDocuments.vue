@@ -10,8 +10,19 @@
 </template>
 
 <script>
-export default {
+import { auth, db } from "@/firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 
+export default {
+  methods: {
+    addNote: async function () {
+      addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
+        folder: this.folder,
+        title: this.noteName,
+        data: "",
+      });
+    },
+  }
 }
 </script>
 

@@ -1,14 +1,19 @@
 <template>
-        <div>
-            <router-link :to="`${$route.path}/print`">Printable View</router-link>
-            <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" 
-                type="text" v-model=docTitle @change="saveTitle">
-            <ckeditor class="h-89% unreset" 
-                :editor="editor" 
-                v-model="editorData" 
-                :config="editorConfig"  
-                @ready="onReady"></ckeditor>
-        </div>
+<div>
+    <div class="flex flex-col justify-center items-center">
+        <router-link :to="`${$route.path}/print`" custom v-slot="{ navigate }">
+            <button @click="navigate" role="link" class="large-button">Open Printable View</button>
+        </router-link>
+    <p> {{lastSaved}}</p>
+    </div>
+    <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" 
+        type="text" v-model=docTitle @change="saveTitle">
+    <ckeditor class="h-89% unreset" 
+        :editor="editor" 
+        v-model="editorData" 
+        :config="editorConfig"  
+        @ready="onReady"></ckeditor>
+</div>
 </template>
 
 <script setup>
@@ -29,10 +34,13 @@
         autosave: {
             waitingTime: 1000, //in ms
             save( editor ) {
+                let curTime = Timestamp.fromDate(new Date())
                 updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
                     title: docTitle.value,
                     data: editor.getData(),
-                    timestamp: Timestamp.fromDate(new Date())
+                    timestamp: curTime
+                }).then( () => {
+                    lastSaved.value = "Last saved at " + curTime.toDate().toLocaleTimeString('en-US');
                 })
             }
         },
@@ -40,9 +48,12 @@
 
     let docTitle = ref('Untitled')
     function saveTitle(){
+        let curTime = Timestamp.fromDate(new Date())
         updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
             title: docTitle.value,
-            timestamp: Timestamp.fromDate(new Date())
+            timestamp: curTime
+         }).then( () => {
+            lastSaved.value = "Last saved at " + curTime.toDate().toLocaleTimeString('en-US');
          })
     }
 
@@ -64,6 +75,18 @@
                 });
 
         } );
+        displayStatus(editor);
+    }
+
+    let lastSaved = ref("")
+
+    function displayStatus( editor ) {
+        const pendingActions = editor.plugins.get( 'PendingActions' );
+        pendingActions.on( 'change:hasAny', ( evt, propertyName, newValue ) => {
+            if ( newValue ) {
+                lastSaved.value = "Saving..."
+            }
+        } );
     }
 
 
@@ -71,6 +94,13 @@
     const router = useRouter()
 
     onBeforeRouteUpdate(async (to, from) => {
+        if (lastSaved.value == "Saving..."){
+            const answer = window.confirm('Do you really want to leave? You have unsaved changes!')
+            if (!answer){
+                router.push({ name: 'document', doc: from.params.doc, replace: true })
+                return;
+            }
+        }
         if (to.params.doc !== from.params.doc) {
             fetchDocumentData(to.params.doc)
         }
@@ -79,8 +109,9 @@
     async function fetchDocumentData(docId){
         let d = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', docId));
         if (d.data()){
-            docTitle.value = d.data().title
-            editorData.value = d.data().data
+            docTitle.value = d.data().title;
+            editorData.value = d.data().data;
+            lastSaved.value = "Last saved at " + d.data().timestamp.toDate().toLocaleTimeString('en-US');
         } else {
             router.push({ name: '404', replace: true })
         }

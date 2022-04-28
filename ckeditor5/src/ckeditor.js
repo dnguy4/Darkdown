@@ -45,6 +45,7 @@ import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 
 import LinkImage from '@ckeditor/ckeditor5-link/src/linkimage.js'
+import PendingActions from '@ckeditor/ckeditor5-core/src/pendingactions';
 
 class Editor extends DecoupledDocumentEditor {}
 
@@ -90,7 +91,8 @@ Editor.builtinPlugins = [
 	TextTransformation,
 	TodoList,
 	Underline,
-	LinkImage
+	LinkImage,
+	PendingActions
 ];
 
 // Editor configuration.
