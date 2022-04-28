@@ -93,12 +93,12 @@
 
     onBeforeRouteUpdate(async (to, from) => {
         if (to.params.doc !== from.params.doc) {
-            fetchDocumentData()
+            fetchDocumentData(to.params.doc)
         }
     })
 
-    async function fetchDocumentData(){
-        let d = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc));
+    async function fetchDocumentData(docId){
+        let d = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', docId));
         if (d.data()){
             docTitle.value = d.data().title
             editorData.value = d.data().data
@@ -108,5 +108,5 @@
     }
 
     //Load in inital data
-    fetchDocumentData();
+    fetchDocumentData(route.params.doc);
 </script>
