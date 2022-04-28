@@ -30,6 +30,7 @@ export default {
     components: { loginButton, AddFolderButton, FoldersLayout, AddDocumentButton },
     name: "SidebarDesktop",
     props: ["fromMobile"],
+}
 </script>
 
 <style scoped>

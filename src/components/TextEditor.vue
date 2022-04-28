@@ -15,7 +15,7 @@
     // import EditableHeader from './EditableHeader.vue';
     import {ref} from 'vue'
     import {db, auth } from "./../firebaseConfig";
-    import { collection, doc, addDoc, setDoc, Timestamp, query, getDocs, orderBy, limit } from "firebase/firestore";
+    import { collection, doc, setDoc, query, getDocs, orderBy, limit } from "firebase/firestore";
 
     import {uploader} from './UploadAdapterBucket.vue';
     import imageRemoveEvent from "./ImageRemoveEvent";
