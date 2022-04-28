@@ -16,13 +16,12 @@
     import Editor from 'ckeditor5-custom-build'
 
     import {ref} from 'vue'
-    import {useRoute, useRouter} from 'vue-router'
+    import {useRoute, useRouter, onBeforeRouteUpdate} from 'vue-router'
     import {db, auth, storage } from "../firebaseConfig";
-    import { doc, getDoc, updateDoc, Timestamp } from "firebase/firestore";
+    import { doc, getDoc, updateDoc, Timestamp, arrayUnion } from "firebase/firestore";
     import { ref as fsref, deleteObject } from "firebase/storage";
 
     import {uploader} from './UploadAdapterBucket.vue';
-    import imageRemoveEvent from "../plugins/ImageRemoveEvent";
 
     let editor = Editor
     let editorData = ref('<p>Content of the editor.</p>')
@@ -55,22 +54,28 @@
             editor.ui.getEditableElement()
         );
 
-        //2nd arg is a callback, can use to remove img url from doc field
-        new imageRemoveEvent(editor, removeImageCallback);
-
         //Called when image finishes uploading, only for file uploads
         const imageUploadEditing = editor.plugins.get( 'ImageUploadEditing' );
         // eslint-disable-next-line 
         imageUploadEditing.on( 'uploadComplete', ( evt, { data, imageElement } ) => {
-                //add as field to doc
+            
                 console.log("Uploaded: " + data.urls.default)
+                updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
+                    imageurls: arrayUnion( data.urls.default)
+                });
+
         } );
     }
 
-    const baseUrl = "https://firebasestorage.googleapis.com/v0/b/darkdown-44b5e.appspot.com/o/";
-    function removeImageCallback(removedImagesSrc) {
+    async function deleteDocImages(docId) {
+        //Call only when the entire document is about to be deleted
+        let document = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', docId));
+        const baseUrl = "https://firebasestorage.googleapis.com/v0/b/darkdown-44b5e.appspot.com/o/";
+        let removedImagesSrc = document.data().imageurls;
+
         removedImagesSrc.forEach(imageUrl => {
             if (imageUrl.includes("firebasestorage")){
+                console.log("Deleting:", imageUrl)
                 let imagePath = imageUrl.replace(baseUrl,"");
                 const indexOfEndPath = imagePath.indexOf("?");
                 imagePath = imagePath.substring(0,indexOfEndPath);
@@ -85,13 +90,23 @@
 
     const route = useRoute();
     const router = useRouter()
-    getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc)).then( (d) => {
+
+    onBeforeRouteUpdate(async (to, from) => {
+        if (to.params.doc !== from.params.doc) {
+            fetchDocumentData()
+        }
+    })
+
+    async function fetchDocumentData(){
+        let d = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc));
         if (d.data()){
             docTitle.value = d.data().title
             editorData.value = d.data().data
         } else {
             router.push({ name: '404', replace: true })
         }
-    })
+    }
 
+    //Load in inital data
+    fetchDocumentData();
 </script>
