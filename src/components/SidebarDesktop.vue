@@ -1,56 +1,36 @@
 <template>
   <div class="sidebar-color" :class="fromMobile ? 'sidebar-menu-mobile' : 'sidebar-menu-desktop'">
-    <ul class="space-y-3 m-4">
-        <li class="content-center">
+    <ul class="space-y-3 h-9/10 max-h-9/10">
+        <li class="content-center pt-5">
             <img class="max-w-[50%] mx-auto" alt="TooDoo logo" src="../assets/logo_orange.png" />
         </li>
-        <li>
-            <button type="button" class="sidebar-button w-full" @click="showDocs=!showDocs">
-                <span>Default</span>
-            </button>
-            <ul v-if="showDocs" class="py-2 space-y-2">
-                <li v-for="doc in docArray" :key="doc.title">
-                    <a @click="goToDoc(doc.id)" class="doc-button">{{doc.title}}</a>
-                </li>
-            </ul>
+        <li class="mr-2">
+            <add-folder-button />
         </li>
-        <li>
-            <div class="sidebar-button">
+        <folders-layout />
+    </ul>
+    <ul class="sidebar-logout-container">
+        <div class="sidebar-logout-button">
             <login-button />
-            </div>
-        </li>
+        </div>
     </ul>
   </div>
 </template>
 
-<script setup>
+
+<script>
+import AddFolderButton from './AddFolderButton.vue';
 import loginButton from './loginButton.vue';
-import { collection, query, getDocs, orderBy } from "firebase/firestore";
-import {db, auth } from "./../firebaseConfig";
-import {useRouter} from "vue-router"
-import {defineProps, ref} from 'vue'
-defineProps({
-"fromMobile": Boolean
-})
-const router = useRouter()
-let showDocs = ref(false)
-let docArray = ref([])
-let goToDoc = (id) => {
-    router.push(`/editor/${id}`)
+import FoldersLayout from "@/components/FoldersLayout.vue";
+export default {
+    components: { loginButton, AddFolderButton, FoldersLayout },
+    name: "SidebarDesktop",
+    props: ["fromMobile"],
 }
-const q = query(collection(db, "users", auth.currentUser.uid, "notes"), orderBy("timestamp", "desc"), );
-    console.log(auth.currentUser)
-    getDocs(q).then((data) => {
-        let dArr = []
-        data.forEach((d) => {
-            console.log("t", d)
-            dArr.push({title:d.data().title, data:d.data().data, id: d.id})
-        })
-        console.log(dArr)
-        docArray.value = dArr
-    })
 </script>
 
-<style>
-
+<style scoped>
+.testing {
+    background-color: aqua;
+}
 </style>
