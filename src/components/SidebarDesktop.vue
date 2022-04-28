@@ -20,6 +20,7 @@
   </div>
 </template>
 
+
 <script>
 import AddFolderButton from './AddFolderButton.vue';
 import loginButton from './loginButton.vue';
@@ -29,7 +30,6 @@ export default {
     components: { loginButton, AddFolderButton, FoldersLayout, AddDocumentButton },
     name: "SidebarDesktop",
     props: ["fromMobile"],
-}
 </script>
 
 <style scoped>

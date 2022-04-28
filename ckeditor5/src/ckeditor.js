@@ -44,6 +44,8 @@ import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformatio
 import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 
+import LinkImage from '@ckeditor/ckeditor5-link/src/linkimage.js'
+
 class Editor extends DecoupledDocumentEditor {}
 
 // Plugins to include in the build.
@@ -87,7 +89,8 @@ Editor.builtinPlugins = [
 	TableToolbar,
 	TextTransformation,
 	TodoList,
-	Underline
+	Underline,
+	LinkImage
 ];
 
 // Editor configuration.
@@ -134,7 +137,9 @@ Editor.defaultConfig = {
 			'imageTextAlternative',
 			'imageStyle:inline',
 			'imageStyle:block',
-			'imageStyle:side'
+			'imageStyle:side',
+			'|',
+			'linkImage'
 		]
 	},
 	table: {
