@@ -12,16 +12,7 @@
       >
         {{ name }}
       </button>
-      <!-- <i v-if="hover" class="material-icons folder-more-icon"> more_horiz </i> -->
-      <i
-        v-if="name != 'default'"
-        @click="addDocument"
-        class="Hey"
-      >
-        Add File
-      </i>
-
-      
+      <add-document-button v-bind:folder=name />
       <i
         v-if="name != 'default'"
         @click="deleteFolder"
@@ -32,7 +23,6 @@
     </div>
     <ul v-if="showDocs" class="py-2 space-y-2">
       <li v-for="docId in documents" :key="docId.id">
-        <!-- <a href="#" class="doc-button">Doc 1</a> -->
         <document-item v-bind:docId="docId" />
       </li>
     </ul>
@@ -53,8 +43,9 @@ import {
   getDocs
 } from "firebase/firestore";
 import DocumentItem from "./DocumentItem.vue";
+import AddDocumentButton from "./AddDocumentButton.vue";
 export default {
-  components: { DocumentItem },
+  components: { DocumentItem, AddDocumentButton },
   props: ["name"],
   data: function () {
     return {

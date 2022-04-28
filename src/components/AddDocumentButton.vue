@@ -1,26 +1,19 @@
 <template>
-  <div>
-    <div class="add-folder-button-container">
-      <button class="Hey" @click="addClick = true">
-        Add Notes
-      </button>
-    </div>
-    <div v-if="addClick" class="add-folder">
+  <i
+    @click="addClick = true"
+    class="material-icons folder-more-icon"
+  >
+    add
+  </i>
+  <div v-if="addClick" class="add-folder">
       <div class="add-folder-pop-up">
         <h3 class="title">Add Note</h3>
-        <div>
-          <select v-model="selectedFolder">
-            <option v-for="folder in folders" v-bind:key="folder.id" v-bind:value="folder">
-              {{ folder }}
-            </option>
-          </select>
-        </div>
         <div class="newItemInput">
           <textarea
             class="add-folder-text-area"
             name="paragraph_text"
             rows="1"
-            placeholder="note name"
+            placeholder="note title"
             v-model="noteName"
             required
           />
@@ -33,32 +26,24 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 import { auth, db } from "@/firebaseConfig";
-import { doc, collection, addDoc, onSnapshot } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 export default {
-  created() {
-    onSnapshot(doc(db, "users", auth.currentUser.uid), (doc) => {
-      this.folders = doc.data().folders;
-    });
-  },
+  props: ["folder"],
   data: function () {
     return {
       addClick: false,
       noteName: null,
-      folders: false,
-      selectedFolder: false,
     };
   },
   methods: {
     addNote: async function () {
       this.addCLick = true;
-
       addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
-        folder: this.selectedFolder,
+        folder: this.folder,
         title: this.noteName,
         data: "",
       });
@@ -73,8 +58,8 @@ export default {
 </script>
 
 <style scoped>
-.Hey{
-background-color: #4CAF50;
+.Hey {
+  background-color: #4caf50;
   border: none;
   color: white;
   padding: 15px 32px;

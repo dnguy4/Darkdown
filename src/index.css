@@ -44,7 +44,7 @@
 }
 
 .doc-button {
-    @apply flex w-5/6 mx-auto items-center justify-center p-2 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue duration-200
+    @apply flex w-5/6 mx-auto items-center justify-center p-2 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue hover:cursor-pointer duration-200
 }
 
 .add-folder-button {

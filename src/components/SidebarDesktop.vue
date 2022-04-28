@@ -9,9 +9,6 @@
         </li>
         <folders-layout />
     </ul>
-    <ul>
-        <add-document-button />
-    </ul>
     <ul class="sidebar-logout-container">
         <div class="sidebar-logout-button">
             <login-button />
@@ -24,9 +21,8 @@
 import AddFolderButton from './AddFolderButton.vue';
 import loginButton from './loginButton.vue';
 import FoldersLayout from "@/components/FoldersLayout.vue";
-import AddDocumentButton from './AddDocumentButton.vue';
 export default {
-    components: { loginButton, AddFolderButton, FoldersLayout, AddDocumentButton },
+    components: { loginButton, AddFolderButton, FoldersLayout },
     name: "SidebarDesktop",
     props: ["fromMobile"],
 }
