@@ -1,11 +1,20 @@
 <template>
 <div>
-    <div class="flex flex-col justify-center items-center">
+    <div class="grid grid-cols-3 gap-4 items-center">
+        <div class="sidebar-logout-button bg-gray-200">
+            <span >Folder:</span>
+             <select v-model="docCategory" class="ml-2 border-2 rounded" name="Category" id="category" @change="saveTitle">
+                <option  v-for="folder in folders" :key="folder.id" :selected="docCategory === folder">
+                    {{folder}}
+                </option>
+            </select>
+        </div>
+        <span class="text-center"> {{lastSaved}}</span>
         <router-link :to="`${$route.path}/print`" custom v-slot="{ navigate }">
-            <button @click="navigate" role="link" class="large-button">Open Printable View</button>
+            <button @click="navigate" role="link" class="sidebar-logout-button bg-gray-200">Open Printable View</button>
         </router-link>
-    <p> {{lastSaved}}</p>
     </div>
+
     <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" 
         type="text" v-model=docTitle @change="saveTitle">
     <ckeditor class="h-89% unreset" 
@@ -22,7 +31,7 @@
     import {ref} from 'vue'
     import {useRoute, useRouter, onBeforeRouteUpdate} from 'vue-router'
     import {db, auth } from "../firebaseConfig";
-    import { doc, getDoc, updateDoc, Timestamp, arrayUnion } from "firebase/firestore";
+    import { doc, getDoc, updateDoc, Timestamp, arrayUnion, onSnapshot } from "firebase/firestore";
 
 
     import {uploader} from './UploadAdapterBucket.vue';
@@ -38,7 +47,8 @@
                 updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
                     title: docTitle.value,
                     data: editor.getData(),
-                    timestamp: curTime
+                    timestamp: curTime,
+                    folder: docCategory.value,
                 }).then( () => {
                     lastSaved.value = "Last saved at " + curTime.toDate().toLocaleTimeString('en-US');
                 })
@@ -51,7 +61,8 @@
         let curTime = Timestamp.fromDate(new Date())
         updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
             title: docTitle.value,
-            timestamp: curTime
+            timestamp: curTime,
+            folder: docCategory.value
          }).then( () => {
             lastSaved.value = "Last saved at " + curTime.toDate().toLocaleTimeString('en-US');
          })
@@ -78,14 +89,14 @@
         displayStatus(editor);
     }
 
-    let lastSaved = ref("")
+    let lastSaved = ref("Loading...")
 
     function displayStatus( editor ) {
         const pendingActions = editor.plugins.get( 'PendingActions' );
         pendingActions.on( 'change:hasAny', ( evt, propertyName, newValue ) => {
-            if ( newValue ) {
+            if ( newValue && lastSaved.value !== "Loading..." && lastSaved.value !== "") {
                 lastSaved.value = "Saving..."
-            }
+            } 
         } );
     }
 
@@ -102,16 +113,24 @@
             }
         }
         if (to.params.doc !== from.params.doc) {
+            lastSaved.value = "Loading..."
             fetchDocumentData(to.params.doc)
         }
     })
 
+    let folders = ref([])
+     onSnapshot(doc(db, "users", auth.currentUser.uid), (d) => {
+      folders.value = d.data().folders;
+    });
+
+    let docCategory = ref("default")
     async function fetchDocumentData(docId){
         let d = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', docId));
         if (d.data()){
             docTitle.value = d.data().title;
             editorData.value = d.data().data;
-            lastSaved.value = "Last saved at " + d.data().timestamp.toDate().toLocaleTimeString('en-US');
+            docCategory.value = d.data().folder;
+            lastSaved.value = "";
         } else {
             router.push({ name: '404', replace: true })
         }

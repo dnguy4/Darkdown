@@ -1,4 +1,5 @@
 <template>
+<div class="grid place-items-center">
   <i
     @click="addClick = true"
     class="material-icons folder-more-icon"
@@ -16,6 +17,7 @@
             placeholder="note title"
             v-model="noteName"
             required
+            @keyup.enter="addNote"
           />
           <button class="add-folder-button-confirm" @click="cancelFolder">
             Cancel
@@ -26,6 +28,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -41,7 +44,6 @@ export default {
   },
   methods: {
     addNote: async function () {
-      this.addCLick = true;
       addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
         folder: this.folder,
         title: this.noteName,
