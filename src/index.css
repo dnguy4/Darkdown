@@ -38,10 +38,54 @@
     @apply text-white p-3 rounded-xl bg-zinc-500 hover:bg-zinc-700 hover:font-bold duration-200
 }
 
+
 .sidebar-button {
-    @apply flex items-center text-left p-3 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue duration-200 
+    @apply flex truncate w-9/10 items-center text-left p-3 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue duration-200 
 }
 
 .doc-button {
-    @apply flex items-center justify-center p-2 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue duration-200
+    @apply flex w-3/4  items-center justify-center p-2 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue hover:cursor-pointer duration-200
+}
+
+.add-folder-button {
+    @apply text-opal
+}
+
+.add-folder-button-container {
+    @apply relative w-fit ml-auto
+}
+
+.add-folder {
+    @apply absolute w-screen h-screen top-0 left-0
+}
+
+.add-folder-pop-up {
+    @apply absolute bg-alice-blue p-2 left-2/5 top-2/5 w-1/5 border-2 border-rich-black rounded-xl
+}
+
+.add-folder-text-area {
+    @apply w-full pl-2
+}
+
+.add-folder-button-confirm {
+    @apply bg-rich-black text-white px-1 mx-1 float-right rounded-lg duration-500 hover:bg-opal hover:text-prussian-blue hover:cursor-pointer
+}
+
+/* .folder-more-icon {
+    @apply my-auto ml-2 text-opal rounded-full hover:bg-opal hover:text-rich-black hover:cursor-pointer
+} */
+.folder-more-icon {
+    @apply my-auto ml-2 text-opal rounded-full hover:cursor-pointer
+}
+
+.sidebar-logout-container {
+    @apply bg-opal hover:bg-alice-blue
+}
+
+.sidebar-logout-button {
+    @apply h-fit items-center text-center p-3 text-prussian-blue font-normal hover:font-bold hover:text-prussian-blue duration-200 
+}
+
+.large-button {
+    @apply flex items-center text-left p-3 rounded-lg font-normal text-alice-blue bg-rich-black duration-200  hover:bg-prussian-blue hover:font-bold hover:scale-110
 }

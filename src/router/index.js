@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import NotFoundView from '../views/NotFoundView'
+import PrintableView from '../views/PrintableView'
 import { auth} from '@/firebaseConfig'
 import MainView from '../views/MainView.vue'
 
@@ -11,19 +12,17 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
+    path: '/editor',
+    name: 'editor',
+    component: MainView,
     meta: {
       requiresAuth: true,
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: MainView,
   },
   {
-    path: '/:folder/:doc',
+    path: '/editor/:doc',
     name: 'document',
+    props: true,
     component: MainView,
     meta: {
       requiresAuth: true
@@ -38,6 +37,15 @@ const routes = [
   //   }
   // },
   {
+    path: '/editor/:doc/print',
+    name: 'printable',
+    component: PrintableView,
+    props: true,
+    meta: {
+          requiresAuth: true
+    }
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: '404',
     component: NotFoundView
@@ -46,8 +54,9 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-});
+  routes,
+})
+
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)

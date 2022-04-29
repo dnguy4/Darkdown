@@ -1,45 +1,36 @@
 <template>
   <div class="sidebar-color" :class="fromMobile ? 'sidebar-menu-mobile' : 'sidebar-menu-desktop'">
-    <ul class="space-y-3 m-4">
-        <li class="content-center">
+    <ul class="space-y-3 h-9/10 max-h-9/10">
+        <li class="content-center pt-5">
             <img class="max-w-[50%] mx-auto" alt="TooDoo logo" src="../assets/logo_orange.png" />
         </li>
-        <li>
-            <button type="button" class="sidebar-button w-full" @click="showDocs=!showDocs">
-                <span>Folder Example</span>
-            </button>
-            <ul v-if="showDocs" class="py-2 space-y-2">
-                <li>
-                    <a href="#" class="doc-button">Doc 1</a>
-                </li>
-                <li>
-                    <a href="#" class="doc-button">Doc 2</a>
-                </li>
-            </ul>
+        <li class="mr-2">
+            <add-folder-button />
         </li>
-        <li>
-            <div class="sidebar-button">
+        <folders-layout />
+    </ul>
+    <ul class="sidebar-logout-container">
+        <div class="sidebar-logout-button">
             <login-button />
-            </div>
-        </li>
+        </div>
     </ul>
   </div>
 </template>
 
+
 <script>
+import AddFolderButton from './AddFolderButton.vue';
 import loginButton from './loginButton.vue';
+import FoldersLayout from "@/components/FoldersLayout.vue";
 export default {
-    components: { loginButton },
+    components: { loginButton, AddFolderButton, FoldersLayout },
     name: "SidebarDesktop",
     props: ["fromMobile"],
-    data: function() {
-        return {
-            showDocs: false,
-        }
-    },
 }
 </script>
 
-<style>
-
+<style scoped>
+.testing {
+    background-color: aqua;
+}
 </style>
