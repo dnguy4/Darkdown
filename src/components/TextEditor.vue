@@ -118,12 +118,17 @@
         }
     })
 
+    let docCategory = ref("default")
     let folders = ref([])
-     onSnapshot(doc(db, "users", auth.currentUser.uid), (d) => {
+    
+    onSnapshot(doc(db, "users", auth.currentUser.uid), (d) => {
       folders.value = d.data().folders;
+      if ( !(docCategory.value in folders.value)){
+        docCategory.value = "default";
+      }
     });
 
-    let docCategory = ref("default")
+
     async function fetchDocumentData(docId){
         let d = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', docId));
         if (d.data()){

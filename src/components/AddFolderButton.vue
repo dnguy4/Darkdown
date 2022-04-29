@@ -57,7 +57,7 @@ export default {
           }
         });
         folders_.push(this.folderName);
-        console.log(folders_);
+        //console.log(folders_);
         const docRef = doc(db, "users", auth.currentUser.uid);
         await updateDoc(docRef, {
           folders: folders_,

@@ -29,29 +29,24 @@
     <ul v-if="showDocs" class="py-2 space-y-2">
       <li v-for="docId in documents" :key="docId.id">
         <button type='button' @click="goTo(docId.id)" class="doc-button"><div>{{docId.title}}</div>
-        <div><i @click="deleteDocument" class="material-icons folder-more-icon">
+        <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
       delete
     </i></div>
         </button>
-        
+      </li>
+      <li v-if="!documents || documents.length === 0" class="mt-2">
+        <span class="lex w-3/4  items-center justify-center p-2 rounded-lg text-prussian-blue bg-gray-300">No documents here!</span>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { auth } from "@/firebaseConfig";
-import { db } from "@/firebaseConfig";
-import {
-  collection,
-  doc,
-  getDoc,
-  updateDoc,
-  onSnapshot,
-  where,
-  query,
-  getDocs
-} from "firebase/firestore";
+import { auth, db, storage } from "@/firebaseConfig";
+import { collection, doc, getDoc, updateDoc, 
+  onSnapshot, where, query, getDocs, deleteDoc} from "firebase/firestore";
+import { ref as fsref, deleteObject } from "firebase/storage";
+
 import AddDocumentButton from "./AddDocumentButton.vue";
 export default {
   components: { AddDocumentButton },
@@ -124,6 +119,46 @@ export default {
         } else {
           console.log("No such document!");
         }
+      }
+    },
+
+    deleteDocument: async function (docId) {
+      let text = "Are you sure you want to delete this note?";
+      if (confirm(text) == true) {
+        const docRef = doc(db, "users", auth.currentUser.uid, "notes", docId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          if(this.$route.params.doc == docId){
+            this.$router.push("/editor");
+          }
+          await this.deleteDocImages(docSnap);
+          await deleteDoc(
+            doc(db, "users", auth.currentUser.uid, "notes", docId)
+          );
+        } else {
+          console.log("No such document!");
+        }
+      }
+    },
+
+    deleteDocImages: async function (document) {
+      const baseUrl =
+        "https://firebasestorage.googleapis.com/v0/b/darkdown-44b5e.appspot.com/o/";
+      let removedImagesSrc = document.data().imageurls;
+      if (removedImagesSrc) {
+        removedImagesSrc.forEach((imageUrl) => {
+          if (imageUrl.includes("firebasestorage")) {
+            console.log("Deleting:", imageUrl);
+            let imagePath = imageUrl.replace(baseUrl, "");
+            const indexOfEndPath = imagePath.indexOf("?");
+            imagePath = imagePath.substring(0, indexOfEndPath).replace(/%2F/g, "/");
+            imagePath = imagePath.replace(/%20/g, " ");
+            deleteObject(fsref(storage, imagePath)).catch((error) => {
+              console.log(error);
+            });
+          }
+        });
       }
     },
   },

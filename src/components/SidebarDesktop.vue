@@ -1,13 +1,13 @@
 <template>
   <div class="sidebar-color" :class="fromMobile ? 'sidebar-menu-mobile' : 'sidebar-menu-desktop'">
-    <ul class="space-y-3 h-9/10 max-h-9/10">
+    <ul class="space-y-3 h-9/10 max-h-9/10 overflow-auto">
         <li class="content-center pt-5">
             <img class="max-w-[50%] mx-auto" alt="TooDoo logo" src="../assets/logo_orange.png" />
         </li>
         <li class="mr-2">
             <add-folder-button />
         </li>
-        <folders-layout />
+        <folders-layout/>
     </ul>
     <ul class="sidebar-logout-container">
         <div class="sidebar-logout-button">

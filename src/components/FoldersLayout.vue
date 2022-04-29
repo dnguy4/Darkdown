@@ -1,7 +1,9 @@
 <template>
-  <li v-for="folder in folders" :key="folder.id" class="ml-4">
+<div>
+  <li v-for="folder in folders" :key="folder.id" class="ml-4 mt-2">
     <folder-item v-bind:name="folder" />
   </li>
+</div>
 </template>
 
 <script>
