@@ -1,5 +1,5 @@
 <template>
-<div>
+<div :class="sidebar ? 'pointer-events-none' : 'pointer-events-auto'">
     <div class="flex flex-col justify-center items-center">
         <router-link :to="`${$route.path}/print`" custom v-slot="{ navigate }">
             <button @click="navigate" role="link" class="large-button">Open Printable View</button>
@@ -19,7 +19,7 @@
 <script setup>
     import Editor from 'ckeditor5-custom-build'
 
-    import {ref} from 'vue'
+    import {defineProps, ref, toRef} from 'vue'
     import {useRoute, useRouter, onBeforeRouteUpdate} from 'vue-router'
     import {db, auth } from "../firebaseConfig";
     import { doc, getDoc, updateDoc, Timestamp, arrayUnion } from "firebase/firestore";
@@ -27,6 +27,11 @@
 
     import {uploader} from './UploadAdapterBucket.vue';
 
+    const props = defineProps({
+        sidebarOpen: Boolean,
+    });
+    const sidebar = toRef(props, 'sidebarOpen')
+    
     let editor = Editor
     let editorData = ref('<p>Content of the editor.</p>')
     let editorConfig = {

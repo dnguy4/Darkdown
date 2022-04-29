@@ -20,6 +20,7 @@
         methods: {
             openSidebar: function() {
                 this.sidebarToggle = !this.sidebarToggle;
+                this.$emit('sidebarOpen', this.sidebarToggle)
             }
         }
     }
