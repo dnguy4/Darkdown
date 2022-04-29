@@ -1,10 +1,10 @@
 <template>
   <div>
-    <mobile-navbar class="mobile-nav-enable"> </mobile-navbar>
+    <mobile-navbar class="mobile-nav-enable" @sidebarOpen="editorReadOnly"> </mobile-navbar>
     <div class="desktop-grid">
         <sidebar-desktop :fromMobile="false"> </sidebar-desktop>
         <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen" :key="notesEmpty">
-            <text-editor v-if="!notesEmpty"/>
+            <text-editor v-if="!notesEmpty" :sidebarOpen="sidebarToggle"/>
             <no-documents v-else/>
         </div>
     </div>
@@ -25,6 +25,7 @@
     const docE = route.params['doc'];
 
     let notesEmpty = ref(false);
+    let sidebarToggle = ref(false);
     if (!docE) {
         notesEmpty.value = true;
     }
@@ -55,6 +56,9 @@
         }
     });
 
+    function editorReadOnly(value) {
+      sidebarToggle.value = value;
+    }
 </script>
 
 <style>

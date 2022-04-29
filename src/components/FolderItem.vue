@@ -8,7 +8,7 @@
       <button
         type="button"
         class="sidebar-button"
-        @click="showDocs = !showDocs"
+        @click.self="showDocs = !showDocs"
       >
       <div class="names1">
         {{ name }}
