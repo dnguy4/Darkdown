@@ -30,7 +30,7 @@
 
 <script>
 import { auth, db } from "@/firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 export default {
   props: ["folder"],
   data: function () {
@@ -46,6 +46,7 @@ export default {
         folder: this.folder,
         title: this.noteName,
         data: "",
+        timestamp: Timestamp.fromDate(new Date()),
       });
       this.cancelFolder();
     },

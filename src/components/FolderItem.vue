@@ -23,7 +23,7 @@
     </div>
     <ul v-if="showDocs" class="py-2 space-y-2">
       <li v-for="docId in documents" :key="docId.id">
-        <document-item v-bind:docId="docId" />
+        <span @click="goTo(docId.id)" class="text-white">{{docId.title}}</span>
       </li>
     </ul>
   </div>
@@ -42,10 +42,9 @@ import {
   query,
   getDocs
 } from "firebase/firestore";
-import DocumentItem from "./DocumentItem.vue";
 import AddDocumentButton from "./AddDocumentButton.vue";
 export default {
-  components: { DocumentItem, AddDocumentButton },
+  components: { AddDocumentButton },
   props: ["name"],
   data: function () {
     return {
@@ -63,13 +62,16 @@ export default {
       (dbData) => {
         let ids = [];
         dbData.docs.forEach((e) => {
-          ids.push(e.id);
+          ids.push({id: e.id, title:e.data().title});
         });
         this.documents = ids;
       }
     );
   },
   methods: {
+    goTo: function (id) {
+      this.$router.push("/editor/" + id);
+    },
     deleteFolder: async function () {
       let text = "Do you want to delete the " + this.name + " folder?";
       if (confirm(text) == true) {
