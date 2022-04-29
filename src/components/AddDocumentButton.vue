@@ -72,4 +72,7 @@ export default {
   cursor: pointer;
   border-radius: 50%;
 }
+.material-icons{
+  color:black;
+}
 </style>

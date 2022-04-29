@@ -10,7 +10,7 @@
         class="sidebar-button"
         @click="showDocs = !showDocs"
       >
-      <div>
+      <div class="names1">
         {{ name }}
       </div>
       <div>
@@ -28,7 +28,12 @@
     </div>
     <ul v-if="showDocs" class="py-2 space-y-2">
       <li v-for="docId in documents" :key="docId.id">
-        <span @click="goTo(docId.id)" class="text-white">{{docId.title}}</span>
+        <button type='button' @click="goTo(docId.id)" class="doc-button"><div>{{docId.title}}</div>
+        <div><i @click="deleteDocument" class="material-icons folder-more-icon">
+      delete
+    </i></div>
+        </button>
+        
       </li>
     </ul>
   </div>
@@ -77,6 +82,7 @@ export default {
     goTo: function (id) {
       this.$router.push("/editor/" + id);
     },
+    
     deleteFolder: async function () {
       let text = "Do you want to delete the " + this.name + " folder?";
       if (confirm(text) == true) {
@@ -128,9 +134,20 @@ export default {
 .folderItemContainer {
   display: flex;
 }
-
+.names1{
+font-weight: bold;
+}
 .sidebar-button{
   justify-content:space-between;
+}
+.doc-button{
+  margin-left: 20px;
+  margin-right:10px;
+  justify-content:space-between;
+  background-color: lightblue;
+  text-align: center;
+}
+.material-icons{
   color:black;
 }
 </style>

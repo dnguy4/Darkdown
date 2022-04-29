@@ -77,9 +77,9 @@ export default {
 
 <style scoped>
 .Hey{
-background-color: #4CAF50;
+background-color: lightblue;
   border: none;
-  color: white;
+  color: black;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -87,5 +87,6 @@ background-color: #4CAF50;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+  border-radius: 50%;
 }
 </style>

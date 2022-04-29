@@ -2,10 +2,11 @@
   <div>
     <button type="button" class="doc-button" @click="goTo">
       {{ document.title }}
-    </button>
-    <i @click="deleteDocument" class="material-icons folder-more-icon">
+      <i @click="deleteDocument" class="material-icons folder-more-icon">
       delete
     </i>
+    </button>
+    
   </div>
 </template>
 
@@ -83,4 +84,7 @@ export default {
 </script>
 
 <style>
+.material-icon{
+  color:black;
+}
 </style>
