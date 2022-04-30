@@ -33,11 +33,20 @@
     </div>
     <ul v-if="showDocs" class="py-2 space-y-2">
       <li v-for="docId in documents" :key="docId.id">
-        <button type='button' @click="goTo(docId.id)" class="doc-button"><div>{{docId.title}}</div>
-        <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
-      delete
-    </i></div>
-        </button>
+        <div v-if="docId.id == this.$route.params.doc">
+          <button type='button' @click="goTo(docId.id)" class="doc-button"><div>{{docId.title}}</div>
+          <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
+          delete
+          </i></div>
+          </button>
+        </div>
+        <div v-else>
+          <button type='button' @click="goTo(docId.id)" class="doc-button-selected"><div>{{docId.title}}</div>
+          <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
+          delete
+          </i></div>
+          </button>
+        </div>
       </li>
       <li v-if="!documents || documents.length === 0" class="mt-2">
         <span class="lex w-3/4 mr-5 items-center justify-center p-2 rounded-lg text-prussian-blue bg-gray-300">No documents here!</span>
@@ -178,12 +187,18 @@ font-weight: bold;
 .sidebar-button{
   justify-content:space-between;
 }
-.doc-button{
+.doc-button, .doc-button-selected {
   margin-left: 20px;
   margin-right:10px;
   justify-content:space-between;
-  background-color: lightsalmon;
   text-align: center;
+}
+
+.doc-button-selected{
+  background-color: #c5d8d1;
+}
+.doc-button{
+  background-color: lightsalmon;
 }
 .material-icons{
   color:black;
