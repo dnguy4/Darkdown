@@ -1,8 +1,12 @@
 <template>
-  <div v-if="!user" class="home">
-    <img class="center" alt="TooDoo logo" src="../assets/logo_orange.png" />
-    <div class="login">
-      <login-button />
+  <div v-if="!user" class="home flex h-screen justify-center items-center">
+    <div class="m-auto">
+      <img alt="Darkdwon Logo" src="../assets/logo_orange.png" />
+      <div class="mt-2">
+        <login-button/>
+        <PWAPrompt class="mt-4" />
+      </div>
+
     </div>
   </div>
 </template>
@@ -11,10 +15,12 @@
 // @ is an alias to /src
 import { auth } from "@/firebaseConfig";
 import LoginButton from "@/components/loginButton.vue";
+import PWAPrompt from '../components/PWAPrompt.vue';
 export default {
   name: "HomeView",
   components: {
     LoginButton,
+    PWAPrompt,
   },
   beforeCreate: function () {
     auth.onAuthStateChanged((user) => {
@@ -43,8 +49,6 @@ export default {
   margin-right: auto;
 }
 .home {
-  text-align: center;
   background-color: #003637;
-  min-height: 100vh;
 }
 </style>
