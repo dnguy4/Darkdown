@@ -8,21 +8,21 @@
       <button
         type="button"
         class="sidebar-button"
-        @click.self="showDocs = !showDocs"
+        @click="showDocs = !showDocs"
       >
       <div class="names1">
         {{ name }}
       </div>
       <div>
         <i
-          @click="this.$emit('openNoteModal', name)"
+          @click.stop="this.$emit('openNoteModal', name)"
           class="material-icons folder-more-icon"
         >
           add
         </i>
       <i
         v-if="name != 'default'"
-        @click="deleteFolder"
+        @click.stop="deleteFolder"
         class="material-icons folder-more-icon"
       >
         delete
