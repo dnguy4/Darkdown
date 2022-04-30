@@ -72,10 +72,13 @@ export default {
 }
 
 #signOutBtn {
+  border-radius: 10px;
   margin-right: 1em;
   margin-top: auto;
   margin-bottom: auto;
   margin-left: 10px;
+  width: 100%;
+  height: 100%;
 }
 
 #signOutBtn:hover {
@@ -104,6 +107,8 @@ export default {
   padding-bottom: 0.5em;
   /* padding: 50%; */
   border-radius: 10px;
+  width: 100%;
+  height: 100%;
 }
 .signIn:hover {
   background-color: #F6FCFE ;

@@ -14,7 +14,12 @@
         {{ name }}
       </div>
       <div>
-        <add-document-button v-bind:folder=name />
+        <i
+          @click="this.$emit('openNoteModal', name)"
+          class="material-icons folder-more-icon"
+        >
+          add
+        </i>
       <i
         v-if="name != 'default'"
         @click="deleteFolder"
@@ -35,7 +40,7 @@
         </button>
       </li>
       <li v-if="!documents || documents.length === 0" class="mt-2">
-        <span class="lex w-3/4  items-center justify-center p-2 rounded-lg text-prussian-blue bg-gray-300">No documents here!</span>
+        <span class="lex w-3/4 mr-5 items-center justify-center p-2 rounded-lg text-prussian-blue bg-gray-300">No documents here!</span>
       </li>
     </ul>
   </div>
@@ -47,9 +52,7 @@ import { collection, doc, getDoc, updateDoc,
   onSnapshot, where, query, getDocs, deleteDoc} from "firebase/firestore";
 import { ref as fsref, deleteObject } from "firebase/storage";
 
-import AddDocumentButton from "./AddDocumentButton.vue";
 export default {
-  components: { AddDocumentButton },
   props: ["name"],
   data: function () {
     return {
