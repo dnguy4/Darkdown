@@ -43,8 +43,10 @@ export default {
         title: this.noteName,
         data: "",
         timestamp: Timestamp.fromDate(new Date()),
+      }).then((x)=>{
+        this.cancelFolder();
+        this.$router.push("/editor/" + x.id);
       });
-      this.cancelFolder();
     },
     cancelFolder: function () {
       this.$emit('closeModal');
