@@ -9,7 +9,7 @@
 }
 
 .mobile-nav-enable {
-    @apply block sm:hidden
+    @apply sm:hidden bg-rich-black flex items-end justify-end
 }
 
 .sidebar-overlay {
@@ -35,7 +35,7 @@
 }
 
 .open-sidebar-button {
-    @apply text-white p-3 rounded-xl bg-zinc-500 hover:bg-zinc-700 hover:font-bold duration-200
+    @apply text-rich-black p-1 m-1 rounded-md bg-opal hover:bg-rich-black hover:font-bold hover:text-opal duration-200 mr-5
 }
 
 
@@ -92,4 +92,8 @@
 
 .new-folder-button {
     @apply bg-opal rounded-lg p-3 mr-5
+}
+
+.top-bar-button {
+    @apply hover:bg-rich-black hover:font-bold hover:text-opal duration-200 p-2
 }

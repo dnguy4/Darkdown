@@ -1,21 +1,21 @@
 <template>
-<div :class="sidebar ? 'pointer-events-none' : 'pointer-events-auto'" >
-    <div class="grid grid-cols-3 gap-4 items-center">
-        <div class="sidebar-logout-button bg-gray-200">
+<div :class="sidebar ? 'pointer-events-none' : 'pointer-events-auto'">
+    <div class="grid grid-cols-3 gap-4 items-center bg-rich-black" >
+        <div class="top-bar-button bg-opal h-full">
             <span >Folder:</span>
-             <select v-model="docCategory" class="ml-2 border-2 rounded" name="Category" id="category" @change="saveTitle">
+             <select v-model="docCategory" class="ml-2 border-2 rounded text-rich-black" name="Category" id="category" @change="saveTitle">
                 <option  v-for="folder in folders" :key="folder.id" :selected="docCategory === folder">
                     {{folder}}
                 </option>
             </select>
         </div>
-        <span class="text-center"> {{lastSaved}}</span>
+        <span class="text-center text-opal"> {{lastSaved}}</span>
         <router-link :to="`${$route.path}/print`" custom v-slot="{ navigate }">
-            <button @click="navigate" role="link" class="sidebar-logout-button bg-gray-200">Open Printable View</button>
+            <button @click="navigate" role="link" class="top-bar-button bg-opal h-full">Print View</button>
         </router-link>
     </div>
 
-    <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-blue-600 border border-sky-500 w-full" 
+    <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-opal border-light-salmon bg-rich-black w-full" 
         type="text" v-model=docTitle @change="saveTitle">
     <ckeditor class="h-89% unreset" 
         :editor="editor" 

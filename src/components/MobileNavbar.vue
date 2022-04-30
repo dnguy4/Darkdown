@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="mobile-navbar">
+        <div class="mobile-navbar-enable">
             <button class="open-sidebar-button" @click="openSidebar"> Open Sidebar </button>
         </div>
         <sidebar-mobile :sidebarOpen="sidebarToggle" @closeSidebar="openSidebar" @openModal="this.$emit('openModal')" @openNoteModal="sendModal"/>

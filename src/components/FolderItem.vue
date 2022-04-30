@@ -182,7 +182,7 @@ font-weight: bold;
   margin-left: 20px;
   margin-right:10px;
   justify-content:space-between;
-  background-color: lightblue;
+  background-color: lightsalmon;
   text-align: center;
 }
 .material-icons{

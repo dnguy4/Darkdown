@@ -3,27 +3,18 @@
       <div class="m-10 text-5xl">
         No documents currently selected.
       </div>
-      <button class="large-button">
+      <button class="large-button" @click="addNote=true">
             Create a new document?
       </button>
   </div>
+  <add-document-button v-show="addNote" :folder="'default'" @closeModal="addNote = false"/> 
 </template>
 
-<script>
-import { auth, db } from "@/firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
-
-export default {
-  methods: {
-    addNote: async function () {
-      addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
-        folder: this.folder,
-        title: this.noteName,
-        data: "",
-      });
-    },
-  }
-}
+<script setup>
+  import {ref} from 'vue';
+  import AddDocumentButton from '@/components/AddDocumentButton.vue';
+  let addNote = ref(false);
+  
 </script>
 
 <style>
