@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div class="add-folder-button-container">
-      <button class="Hey" @click="addClick = true">
-        New Folder
-      </button>
-    </div>
-    <div v-if="addClick" class="add-folder">
+    <div class="add-folder">
       <div class="add-folder-pop-up">
         <h3 class="title">Add Folder</h3>
         <div class="newItemInput">
@@ -37,14 +32,11 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 export default {
   data: function () {
     return {
-      addClick: false,
       folderName: null,
     };
   },
   methods: {
     addFolder: async function () {
-      this.addCLick = true;
-
       const docRef = doc(db, "users", auth.currentUser.uid);
       const docSnap = await getDoc(docRef);
 
@@ -69,7 +61,7 @@ export default {
       }
     },
     cancelFolder: function () {
-      this.addClick = false;
+      this.$emit('closeModal');
       this.folderName = null;
     },
   },
@@ -77,17 +69,4 @@ export default {
 </script>
 
 <style scoped>
-.Hey{
-background-color: lightblue;
-  border: none;
-  color: black;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 50%;
-}
 </style>

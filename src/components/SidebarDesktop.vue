@@ -1,13 +1,17 @@
 <template>
   <div class="sidebar-color" :class="fromMobile ? 'sidebar-menu-mobile' : 'sidebar-menu-desktop'">
-    <ul class="space-y-3 h-9/10 max-h-9/10 overflow-auto">
+    <ul class="space-y-3 h-85% max-h-9/10 overflow-auto">
         <li class="content-center pt-5">
             <img class="max-w-[50%] mx-auto" alt="TooDoo logo" src="../assets/logo_orange.png" />
         </li>
         <li class="mr-2">
-            <add-folder-button />
+            <div class="add-folder-button-container">
+                <button class="new-folder-button" @click="this.$emit('openModal')">
+                    New Folder
+                </button>
+            </div>
         </li>
-        <folders-layout/>
+        <folders-layout @openNoteModal="sendModal"/>
     </ul>
     <ul class="sidebar-logout-container">
         <div class="sidebar-logout-button">
@@ -19,13 +23,18 @@
 
 
 <script>
-import AddFolderButton from './AddFolderButton.vue';
+//import AddFolderButton from './AddFolderButton.vue';
 import loginButton from './loginButton.vue';
 import FoldersLayout from "@/components/FoldersLayout.vue";
 export default {
-    components: { loginButton, AddFolderButton, FoldersLayout },
+    components: { loginButton, FoldersLayout },
     name: "SidebarDesktop",
     props: ["fromMobile"],
+    methods: {
+    sendModal: function(name) {
+      this.$emit('openNoteModal', name)
+    }
+  },
 }
 </script>
 

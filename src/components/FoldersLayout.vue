@@ -1,7 +1,7 @@
 <template>
 <div>
   <li v-for="folder in folders" :key="folder.id" class="ml-4 mt-2">
-    <folder-item v-bind:name="folder" />
+    <folder-item v-bind:name="folder" @openNoteModal="sendModal"/>
   </li>
 </div>
 </template>
@@ -17,6 +17,11 @@ export default {
     return {
       folders: false,
     };
+  },
+  methods: {
+    sendModal: function(name) {
+      this.$emit('openNoteModal', name)
+    }
   },
   created() {
     onSnapshot(doc(db, "users", auth.currentUser.uid), (doc) => {

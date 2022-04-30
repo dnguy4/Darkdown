@@ -1,12 +1,6 @@
 <template>
 <div class="grid place-items-center">
-  <i
-    @click="addClick = true"
-    class="material-icons folder-more-icon"
-  >
-    add
-  </i>
-  <div v-if="addClick" class="add-folder">
+  <div class="add-folder">
       <div class="add-folder-pop-up">
         <h3 class="title">Add Note</h3>
         <div class="newItemInput">
@@ -53,7 +47,7 @@ export default {
       this.cancelFolder();
     },
     cancelFolder: function () {
-      this.addClick = false;
+      this.$emit('closeModal');
       this.noteName = null;
     },
   },

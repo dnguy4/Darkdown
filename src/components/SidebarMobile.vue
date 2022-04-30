@@ -1,7 +1,7 @@
 <template>
     <div>
         <aside class="sidebar-menu-mobile" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
-            <sidebar-desktop :fromMobile="true"> </sidebar-desktop>
+            <sidebar-desktop :fromMobile="true" @openModal="this.$emit('openModal')" @openNoteModal="sendModal"> </sidebar-desktop>
         </aside>
 
         <div>
@@ -23,6 +23,9 @@ export default {
     methods: {
         closeSidebar() {
             this.$emit('closeSidebar');
+        },
+        sendModal: function(name) {
+            this.$emit('openNoteModal', name)
         }
     }
 }

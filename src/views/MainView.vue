@@ -1,19 +1,23 @@
 <template>
   <div>
-    <mobile-navbar class="mobile-nav-enable" @sidebarOpen="editorReadOnly"> </mobile-navbar>
+    <mobile-navbar class="mobile-nav-enable" @sidebarOpen="editorReadOnly" @openModal="addClick = true" @openNoteModal="getFolderNote"> </mobile-navbar>
     <div class="desktop-grid">
-        <sidebar-desktop :fromMobile="false"> </sidebar-desktop>
+        <sidebar-desktop :fromMobile="false" @openModal="addClick = true" @openNoteModal="getFolderNote"> </sidebar-desktop>
         <div class="sm:col-start-2 sm:col-span-4 overflow-auto h-screen" :key="notesEmpty">
             <text-editor v-if="!notesEmpty" :sidebarOpen="sidebarToggle"/>
             <no-documents v-else/>
         </div>
     </div>
+    <add-folder-button v-show="addClick" @closeModal="addClick = false"/>
+    <add-document-button v-show="addNote" :folder="folderName" @closeModal="addNote = false"/> 
   </div>
 </template>
 
 <script setup>
     import {watch, ref} from 'vue';
     import { useRoute } from 'vue-router'
+    import AddDocumentButton from '@/components/AddDocumentButton.vue';
+    import AddFolderButton from '@/components/AddFolderButton.vue';
     import SidebarDesktop from '@/components/SidebarDesktop.vue';
     import MobileNavbar from '@/components/MobileNavbar.vue';
     import TextEditor from '@/components/TextEditor.vue';
@@ -23,6 +27,15 @@
 
     const route = useRoute();
     const docE = route.params['doc'];
+
+    let addClick = ref(false);
+    let addNote = ref(false);
+    let folderName = ref("");
+
+    function getFolderNote(name) {
+        addNote.value = true;
+        folderName.value = name;
+    }
 
     let notesEmpty = ref(false);
     let sidebarToggle = ref(false);
