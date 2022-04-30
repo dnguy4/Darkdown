@@ -16,6 +16,7 @@
             placeholder="Folder name"
             v-model="folderName"
             required
+            @keyup.enter="addFolder"
           />
           <button class="add-folder-button-confirm" @click="cancelFolder">
             Cancel

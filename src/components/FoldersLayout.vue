@@ -20,7 +20,8 @@ export default {
   },
   created() {
     onSnapshot(doc(db, "users", auth.currentUser.uid), (doc) => {
-      this.folders=doc.data().folders;
+      if (doc.data())
+        this.folders=doc.data().folders;
     });
   },
 };
