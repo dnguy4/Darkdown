@@ -1,5 +1,5 @@
 <!-- Made based off this tutorial https://blog.logrocket.com/building-pwa-vue/
-Original Author:  Josh Collinsworth -->
+Original Author:  Josh Collinsworth-->
 <template>
   <div v-if="shown" class="flex">
 
@@ -17,7 +17,7 @@ export default {
     shown: true,
   }),
 
-  beforeMount() {
+  mounted() {
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault()
       this.installEvent = e

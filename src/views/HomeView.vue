@@ -4,7 +4,7 @@
       <img alt="Darkdwon Logo" src="../assets/logo_orange.png" />
       <div class="mt-2">
         <login-button/>
-        <PWAPrompt class="mt-4" />
+        <!-- <PWAPrompt class="mt-4" /> -->
       </div>
 
     </div>
@@ -15,12 +15,12 @@
 // @ is an alias to /src
 import { auth } from "@/firebaseConfig";
 import LoginButton from "@/components/loginButton.vue";
-import PWAPrompt from '../components/PWAPrompt.vue';
+// import PWAPrompt from '../components/PWAPrompt.vue';
 export default {
   name: "HomeView",
   components: {
     LoginButton,
-    PWAPrompt,
+    // PWAPrompt,
   },
   beforeCreate: function () {
     auth.onAuthStateChanged((user) => {
