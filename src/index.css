@@ -99,5 +99,5 @@
 }
 
 .top-bar-button {
-    @apply hover:bg-rich-black hover:font-bold hover:text-opal duration-200 p-2
+    @apply font-bold duration-200 p-2
 }
