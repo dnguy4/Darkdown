@@ -5,11 +5,11 @@
 /* Please do not change these */
 
 .desktop-grid {
-    @apply sm:grid grid-cols-5 bg-opal
+    @apply sm:grid grid-cols-5 bg-slate-200
 }
 
 .mobile-nav-enable {
-    @apply sm:hidden bg-rich-black flex items-end justify-end
+    @apply sm:hidden bg-slate-800 flex items-end justify-end
 }
 
 .sidebar-overlay {
@@ -31,28 +31,28 @@
 /* Feel free to change those */
 
 .sidebar-color {
-    @apply bg-rich-black
+    @apply bg-slate-800
 }
 
 .open-sidebar-button {
-    @apply text-rich-black p-1 m-1 hover:font-bold hover:text-opal duration-200 mr-5
+    @apply bg-slate-200 p-1 m-1 hover:font-bold hover:bg-slate-300 duration-200 mr-5
 }
 
 
 .sidebar-button {
-    @apply flex truncate w-9/10 items-center text-left p-2 pl-4 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue duration-200 
+    @apply flex truncate w-9/10 items-center text-left p-2 pl-4 rounded-lg font-normal bg-slate-400 hover:font-bold hover:bg-red-400 duration-200 
 }
 
 .doc-button {
-    @apply flex w-3/4  items-center justify-center p-2 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue hover:cursor-pointer duration-200
+    @apply flex w-3/4  items-center justify-center p-2 rounded-lg font-normal bg-slate-200 hover:font-bold hover:cursor-pointer duration-200
 }
 
 .doc-button-selected {
-    @apply flex w-3/4  items-center justify-center p-2 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue hover:cursor-pointer duration-200
+    @apply flex w-3/4  items-center justify-center p-2 rounded-lg font-normal bg-slate-200  hover:font-bold  hover:cursor-pointer duration-200
 }
 
 .add-folder-button {
-    @apply text-opal
+    @apply bg-slate-200
 }
 
 .add-folder-button-container {
@@ -72,30 +72,27 @@
 }
 
 .add-folder-button-confirm {
-    @apply bg-rich-black text-white px-1 mx-1 float-right rounded-lg duration-500 hover:bg-opal hover:text-prussian-blue hover:cursor-pointer
+    @apply bg-slate-800 text-white px-1 mx-1 float-right rounded-lg duration-500 hover:bg-opal hover:bg-slate-200 hover:cursor-pointer
 }
 
 /* .folder-more-icon {
-    @apply my-auto ml-2 text-opal rounded-full hover:bg-opal hover:text-rich-black hover:cursor-pointer
+    @apply my-auto ml-2 text-opal rounded-full hover:bg-opal hover:bg-slate-500 hover:cursor-pointer
 } */
 .folder-more-icon {
-    @apply my-auto ml-2 text-opal rounded-full hover:cursor-pointer
+    @apply my-auto ml-2 bg-slate-200 rounded-full hover:cursor-pointer
 }
 
-.sidebar-logout-container {
-    @apply bg-opal hover:bg-alice-blue rounded-lg m-5
-}
 
 .sidebar-logout-button {
-    @apply h-fit items-center text-center p-3 text-prussian-blue font-normal hover:font-bold hover:text-prussian-blue duration-200 
+    @apply h-fit flex p-3 items-center text-center bg-slate-400 font-normal font-bold hover:bg-red-400 duration-200 
 }
 
 .large-button {
-    @apply flex items-center text-left p-3 rounded-lg font-normal text-alice-blue bg-rich-black duration-200  hover:bg-prussian-blue hover:font-bold hover:scale-110
+    @apply flex items-center text-left p-3 rounded-lg font-normal text-alice-blue  duration-200  bg-prussian-blue hover:font-bold hover:scale-110
 }
 
 .new-folder-button {
-    @apply bg-opal rounded-lg p-3 mr-5
+    @apply bg-slate-400 hover:bg-red-400 rounded-lg p-3 mr-5 font-bold 
 }
 
 .top-bar-button {

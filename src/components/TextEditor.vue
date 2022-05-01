@@ -1,21 +1,21 @@
 <template>
 <div :class="sidebar ? 'pointer-events-none' : 'pointer-events-auto'" class="h-3/4">
-    <div class="grid grid-cols-3 gap-4 items-center bg-rich-black" >
-        <div class="top-bar-button bg-opal h-full">
+    <div class="grid grid-cols-3 gap-4 items-center bg-slate-800" >
+        <div class="top-bar-button bg-slate-200 h-full">
             <span >Folder:</span>
-             <select v-model="docCategory" class="w-48 ml-2 border-2 rounded text-rich-black truncate ..." name="Category" id="category" @change="saveTitle">
-                <option class="w-48 truncate ..." v-for="folder in folders" :key="folder.id" :value="folder" :selected="docCategory === folder">
+             <select v-model="docCategory" class="w-48 ml-2 border-2 rounded text-rich-black bg-slate-200 truncate ... hover:bg-red-400" name="Category" id="category" @change="saveTitle">
+                <option class="w-48 bg-slate-200 truncate ..." v-for="folder in folders" :key="folder.id" :value="folder" :selected="docCategory === folder">
                     {{folder}}
                 </option>
             </select>
         </div>
         <span class="text-center text-opal"> {{lastSaved}}</span>
         <router-link :to="`${$route.path}/print`" custom v-slot="{ navigate }">
-            <button @click="navigate" role="link" class="top-bar-button bg-opal h-full">Print View</button>
+            <button @click="navigate" role="link" class="top-bar-button hover:bg-red-400 bg-slate-200 h-full">Print View</button>
         </router-link>
     </div>
 
-    <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-opal border-light-salmon bg-rich-black w-full" 
+    <input class="font-medium leading-tight text-4xl mt-0 mb-2 text-center text-slate-200 border-light-salmon bg-slate-800 w-full" 
         type="text" v-model=docTitle @change="saveTitle">
     <ckeditor class="h-89% unreset" 
         :editor="editor" 

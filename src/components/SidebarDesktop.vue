@@ -14,9 +14,7 @@
         <folders-layout @openNoteModal="sendModal"/>
     </ul>
     <ul class="sidebar-logout-container">
-        <div class="sidebar-logout-button">
             <login-button />
-        </div>
     </ul>
   </div>
 </template>

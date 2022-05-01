@@ -7,13 +7,14 @@
     </template>
     <template v-if="user">
       <!-- <button id="signOutBtn" @click="signOut">Sign Out</button> -->
-      <img
+      
+      <Button class="sidebar-logout-button" id="signOutBtn" @click="signOut"><img
         class="avatar"
         :src="user.photoURL"
         alt="avatar"
         referrerpolicy="no-referrer"
       />
-      <span class="logout" id="signOutBtn" @click="signOut">Logout</span>
+      Logout</Button>
       <!-- <i class="material-icons" id="signOutBtn" @click="signOut"> logout </i> -->
       <!-- google is real paranoid about hotlinking images I guess the referrerpolicy seems to fix it
         https://stackoverflow.com/questions/40570117/http403-forbidden-error-when-trying-to-load-img-src-with-google-profile-pic -->
@@ -68,6 +69,7 @@ export default {
 .avatar {
   width: 2em;
   height: 2em;
+  margin-right: 2em;
   border-radius: 50%;
 }
 

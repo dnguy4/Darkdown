@@ -34,14 +34,14 @@
     <ul v-if="showDocs" class="py-2 space-y-2">
       <li v-for="docId in documents" :key="docId.id">
         <div v-if="docId.id == this.$route.params.doc">
-          <button type='button' @click="goTo(docId.id)" class="truncate ... doc-button"><div class="truncate ... ">{{docId.title}}</div>
+          <button type='button' @click="goTo(docId.id)" class="truncate ... doc-button "><div class="truncate ... ">{{docId.title}}</div>
           <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
           delete
           </i></div>
           </button>
         </div>
         <div v-else>
-          <button type='button' @click="goTo(docId.id)" class="truncate ... doc-button-selected"><div class="truncate ... ">{{docId.title}}</div>
+          <button type='button' @click="goTo(docId.id)" class="truncate ... doc-button-selected "><div class="truncate ... ">{{docId.title}}</div>
           <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
           delete
           </i></div>
@@ -49,7 +49,7 @@
         </div>
       </li>
       <li v-if="!documents || documents.length === 0" class="mt-2">
-        <span class="lex w-3/4 mr-5 items-center justify-center p-2 rounded-lg text-prussian-blue bg-gray-300">No documents here!</span>
+        <span class="lex w-3/4 mr-5 items-center justify-center p-2 rounded-lg bg-slate-200">No documents here!</span>
       </li>
     </ul>
   </div>
@@ -200,13 +200,15 @@ font-weight: bold;
   text-align: center;
 }
 
-.doc-button-selected{
-  background-color: #c5d8d1;
-}
 .doc-button{
-  background-color: lightsalmon;
+  background-color: #f87171;
 }
 .material-icons{
   color:black;
+  background-color: transparent;
+}
+
+.material-icons:hover{
+  color:rgb(143, 28, 28);
 }
 </style>

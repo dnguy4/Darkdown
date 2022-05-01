@@ -1,7 +1,7 @@
 <template>
   <div v-if="!user" class="home flex h-screen justify-center items-center">
     <div class="m-auto">
-      <img alt="Darkdwon Logo" src="../assets/logo_orange.png" />
+      <img alt="Darkdown Logo" src="../assets/logo_orange.png" />
       <div class="mt-2">
         <login-button/>
         <!-- <PWAPrompt class="mt-4" /> -->
@@ -49,6 +49,6 @@ export default {
   margin-right: auto;
 }
 .home {
-  background-color: #003637;
+  background-color: #1e293b;
 }
 </style>
