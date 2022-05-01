@@ -149,3 +149,10 @@
     //Load in inital data
     fetchDocumentData(route.params.doc);
 </script>
+
+<style>
+.top-bar-button {
+    border-radius:30px;
+
+}
+</style>
