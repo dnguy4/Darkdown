@@ -6,7 +6,7 @@ CSCI 5117, Spring 2022, [assignment description](https://canvas.umn.edu/courses/
 
 * Team Name: Oysters
 * App Name: Darkdown
-* App Link: <https://TODO.firebaseapp.com/>
+* App Link: <https://darkdown-44b5e.web.app/>
 
 ### Students
 
@@ -22,15 +22,19 @@ CSCI 5117, Spring 2022, [assignment description](https://canvas.umn.edu/courses/
 **Describe the most challenging features you implemented
 (one sentence per bullet, maximum 4 bullets):**
 
-* ...
+* Our Print View feature was intially a PDF export feature, but we reworked it after facing issues with CORS and dynamic styling.
+* Linking images to Firestorage and programmatically removing them involved making custom builds of our CKEditor and hand writing plugins.
+* Making the sidebar hide on mobile and appear as a pop-up was challenging, especially with 
+ignoring events on our editor in favor of the sidebar.
+* The live firebase updates in the folder system and documents was harder to do without the help of Vuefire.
 
 Which (if any) device integration(s) does your app support?
 
-* ...
+* You can take pictures with your phone and upload them.
 
 Which (if any) progressive web app feature(s) does your app support?
 
-* ...
+* The app can be installed and added to mobile and desktop.
 
 
 
@@ -55,7 +59,7 @@ Which (if any) progressive web app feature(s) does your app support?
 
 **Is there anything special we need to know in order to effectively test your app? (optional):**
 
-* ...
+* This was made in Vue 3.
 
 
 
@@ -66,7 +70,13 @@ along with a very brief caption:**
 
 ![](https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif)
 
+The editor view when you have no documents selected.
 
+The view of a single document.
+
+The 404 page.
+
+A view of how you can add folders.
 
 ## External Dependencies
 
@@ -74,7 +84,8 @@ along with a very brief caption:**
 Please do not document required libraries (e.g., Vue, Vuefire, Firebase).**
 
 * Library or service name: description of use
-* ...
+* [CKEditor 5](https://ckeditor.com/ckeditor-5/) - A WYSIWYG Text Editor library
+* [Tailwind CSS](https://tailwindcss.com)
 
 **If there's anything else you would like to disclose about how your project
 relied on external code, expertise, or anything else, please disclose that
