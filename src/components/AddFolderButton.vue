@@ -49,19 +49,23 @@ export default {
             return;
           }
         });
-        folders_.push(this.folderName);
-        //console.log(folders_);
-        const docRef = doc(db, "users", auth.currentUser.uid);
-        await updateDoc(docRef, {
-          folders: folders_,
-        });
-        this.cancelFolder();
+        if (this.folderName) {
+          folders_.push(this.folderName);
+          //console.log(folders_);
+          const docRef = doc(db, "users", auth.currentUser.uid);
+          await updateDoc(docRef, {
+            folders: folders_,
+          });
+          this.cancelFolder();
+        } else {
+          alert("Invalid Folder Name!");
+        }
       } else {
         console.log("No such document!");
       }
     },
     cancelFolder: function () {
-      this.$emit('closeModal');
+      this.$emit("closeModal");
       this.folderName = null;
     },
   },
