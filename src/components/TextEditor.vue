@@ -1,5 +1,5 @@
 <template>
-<div :class="sidebar ? 'pointer-events-none' : 'pointer-events-auto'">
+<div :class="sidebar ? 'pointer-events-none' : 'pointer-events-auto'" class="h-3/4">
     <div class="grid grid-cols-3 gap-4 items-center bg-rich-black" >
         <div class="top-bar-button bg-opal h-full">
             <span >Folder:</span>
