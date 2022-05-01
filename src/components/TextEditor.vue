@@ -3,7 +3,7 @@
     <div class="grid grid-cols-3 gap-4 items-center bg-slate-800" >
         <div class="top-bar-button bg-slate-200 h-full">
             <span >Folder:</span>
-             <select v-model="docCategory" class="w-1/2 ml-2 border-2 rounded text-rich-black bg-slate-200 truncate ... hover:bg-red-400" name="Category" id="category" @change="saveTitle">
+             <select v-model="docCategory" class="w-1/2 ml-2 border-2 rounded text-rich-black bg-slate-200 truncate ... " name="Category" id="category" @change="saveTitle">
                 <option class="w-48 truncate ..." v-for="folder in folders" :key="folder.id" :value="folder" :selected="docCategory === folder">
                     {{folder}}
                 </option>
