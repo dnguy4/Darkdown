@@ -49,7 +49,7 @@ export default {
             return;
           }
         });
-        if (this.folderName) {
+        if (this.folderName.trim()) {
           folders_.push(this.folderName);
           //console.log(folders_);
           const docRef = doc(db, "users", auth.currentUser.uid);
