@@ -3,6 +3,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   pwa: {
     name: "Darkdown",
-    themeColor: "#003637"
+    themeColor: "#003637",
+    start_url: "/"
   }
 })
