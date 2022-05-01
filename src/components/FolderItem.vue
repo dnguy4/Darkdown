@@ -34,14 +34,14 @@
     <ul v-if="showDocs" class="py-2 space-y-2">
       <li v-for="docId in documents" :key="docId.id">
         <div v-if="docId.id == this.$route.params.doc">
-          <button type='button' @click="goTo(docId.id)" class="doc-button"><div>{{docId.title}}</div>
+          <button type='button' @click="goTo(docId.id)" class="doc-button doc-button-cs"><div>{{docId.title}}</div>
           <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
           delete
           </i></div>
           </button>
         </div>
         <div v-else>
-          <button type='button' @click="goTo(docId.id)" class="doc-button-selected"><div>{{docId.title}}</div>
+          <button type='button' @click="goTo(docId.id)" class="doc-button-selected doc-button-cs"><div>{{docId.title}}</div>
           <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
           delete
           </i></div>
@@ -187,14 +187,7 @@ font-weight: bold;
 .sidebar-button{
   justify-content:space-between;
 }
-.doc-button{
-  margin-left: 20px;
-  margin-right:10px;
-  justify-content:space-between;
-  text-align: center;
-}
-
-.doc-button-selected {
+.doc-button-cs, .doc-button-selected {
   margin-left: 20px;
   margin-right:10px;
   justify-content:space-between;
