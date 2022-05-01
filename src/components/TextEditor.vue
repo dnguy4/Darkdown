@@ -3,8 +3,8 @@
     <div class="grid grid-cols-3 gap-4 items-center bg-rich-black" >
         <div class="top-bar-button bg-opal h-full">
             <span >Folder:</span>
-             <select v-model="docCategory" class="ml-2 border-2 rounded text-rich-black" name="Category" id="category" @change="saveTitle">
-                <option  v-for="folder in folders" :key="folder.id" :selected="docCategory === folder">
+             <select v-model="docCategory" class="w-48 ml-2 border-2 rounded text-rich-black truncate ..." name="Category" id="category" @change="saveTitle">
+                <option class="w-48 truncate ..." v-for="folder in folders" :key="folder.id" :value="folder" :selected="docCategory === folder">
                     {{folder}}
                 </option>
             </select>
@@ -149,3 +149,10 @@
     //Load in inital data
     fetchDocumentData(route.params.doc);
 </script>
+
+<style>
+.top-bar-button {
+    border-radius:30px;
+
+}
+</style>

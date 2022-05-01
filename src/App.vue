@@ -11,25 +11,7 @@
 </template>
 
 <script>
-export default { /*
-  computed: function() {
-    return {
-      isOffline: navigator.onLine,
-    }
-  },
-  created() {
-    console.log(this.$workbox);
-  if (this.$workbox) {
-    this.$workbox.addEventListener('offline', () => {
-      this.isOffline = true;
-
-    });
-
-    this.$workbox.addEventListener('online', () => {
-      this.isOffline = false;
-    });
-  }
-} */
+export default {
 }
 </script>
 <style>
