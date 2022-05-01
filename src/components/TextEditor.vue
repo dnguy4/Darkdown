@@ -62,15 +62,22 @@
     }
 
     let docTitle = ref('Untitled')
+    let originalTitle = ref('Untitled')
     function saveTitle(){
-        let curTime = Timestamp.fromDate(new Date())
-        updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
-            title: docTitle.value,
-            timestamp: curTime,
-            folder: docCategory.value
-         }).then( () => {
-            lastSaved.value = "Last saved at " + curTime.toDate().toLocaleTimeString('en-US');
-         })
+        let curTime = Timestamp.fromDate(new Date());
+        if(docTitle.value){
+            updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
+                title: docTitle.value,
+                timestamp: curTime,
+                folder: docCategory.value
+            }).then( () => {
+                lastSaved.value = "Last saved at " + curTime.toDate().toLocaleTimeString('en-US');
+            })
+        } else {
+
+            docTitle.value=originalTitle.value;
+            alert("Invalid Note Title.")
+        }
     }
 
     let onReady = ( editor ) => {
@@ -137,6 +144,7 @@
     async function fetchDocumentData(docId){
         let d = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', docId));
         if (d.data()){
+            originalTitle.value = d.data().title;
             docTitle.value = d.data().title;
             editorData.value = d.data().data;
             docCategory.value = d.data().folder;
