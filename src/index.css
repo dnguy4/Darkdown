@@ -47,6 +47,10 @@
     @apply flex w-3/4  items-center justify-center p-2 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue hover:cursor-pointer duration-200
 }
 
+.doc-button-selected {
+    @apply flex w-3/4  items-center justify-center p-2 rounded-lg text-prussian-blue font-normal bg-opal hover:bg-alice-blue hover:font-bold hover:text-prussian-blue hover:cursor-pointer duration-200
+}
+
 .add-folder-button {
     @apply text-opal
 }
@@ -95,5 +99,5 @@
 }
 
 .top-bar-button {
-    @apply hover:bg-rich-black hover:font-bold hover:text-opal duration-200 p-2
+    @apply font-bold duration-200 p-2
 }
