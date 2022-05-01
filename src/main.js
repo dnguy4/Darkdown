@@ -4,6 +4,7 @@ import router from './router'
 import { auth } from "@/firebaseConfig";
 import './index.css'
 import CKEditor from '@ckeditor/ckeditor5-vue';
+import './registerServiceWorker'
 // import wb from './registerServiceWorker'
 
 let app;
