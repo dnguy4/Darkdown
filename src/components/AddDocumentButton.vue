@@ -1,6 +1,6 @@
 <template>
-<div class="grid place-items-center">
-  <div class="add-folder">
+  <div class="grid place-items-center">
+    <div class="add-folder">
       <div class="add-folder-pop-up">
         <h3 class="title">Add Note</h3>
         <div class="newItemInput">
@@ -38,18 +38,22 @@ export default {
   },
   methods: {
     addNote: async function () {
-      addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
-        folder: this.folder,
-        title: this.noteName,
-        data: "",
-        timestamp: Timestamp.fromDate(new Date()),
-      }).then((x)=>{
-        this.cancelFolder();
-        this.$router.push("/editor/" + x.id);
-      });
+      if (this.noteName) {
+        addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
+          folder: this.folder,
+          title: this.noteName,
+          data: "",
+          timestamp: Timestamp.fromDate(new Date()),
+        }).then((x) => {
+          this.cancelFolder();
+          this.$router.push("/editor/" + x.id);
+        });
+      } else {
+        alert("Invalid Note Name!");
+      }
     },
     cancelFolder: function () {
-      this.$emit('closeModal');
+      this.$emit("closeModal");
       this.noteName = null;
     },
   },
@@ -70,7 +74,7 @@ export default {
   cursor: pointer;
   border-radius: 50%;
 }
-.material-icons{
-  color:black;
+.material-icons {
+  color: black;
 }
 </style>
