@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     addNote: async function () {
-      if (this.noteName) {
+      if (this.noteName.trim()) {
         addDoc(collection(db, "users", auth.currentUser.uid, "notes"), {
           folder: this.folder,
           title: this.noteName,

@@ -3,7 +3,7 @@
     <div class="grid grid-cols-3 gap-4 items-center bg-rich-black" >
         <div class="top-bar-button bg-opal h-full">
             <span >Folder:</span>
-             <select v-model="docCategory" class="w-48 ml-2 border-2 rounded text-rich-black truncate ..." name="Category" id="category" @change="saveTitle">
+             <select v-model="docCategory" class="w-1/2 ml-2 border-2 rounded text-rich-black truncate ..." name="Category" id="category" @change="saveTitle">
                 <option class="w-48 truncate ..." v-for="folder in folders" :key="folder.id" :value="folder" :selected="docCategory === folder">
                     {{folder}}
                 </option>
@@ -62,22 +62,15 @@
     }
 
     let docTitle = ref('Untitled')
-    let originalTitle = ref('Untitled')
     function saveTitle(){
-        let curTime = Timestamp.fromDate(new Date());
-        if(docTitle.value){
-            updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
-                title: docTitle.value,
-                timestamp: curTime,
-                folder: docCategory.value
-            }).then( () => {
-                lastSaved.value = "Last saved at " + curTime.toDate().toLocaleTimeString('en-US');
-            })
-        } else {
-
-            docTitle.value=originalTitle.value;
-            alert("Invalid Note Title.")
-        }
+        let curTime = Timestamp.fromDate(new Date())
+        updateDoc(doc(db, 'users', auth.currentUser.uid, 'notes', route.params.doc), {
+            title: docTitle.value,
+            timestamp: curTime,
+            folder: docCategory.value
+         }).then( () => {
+            lastSaved.value = "Last saved at " + curTime.toDate().toLocaleTimeString('en-US');
+         })
     }
 
     let onReady = ( editor ) => {
@@ -144,7 +137,6 @@
     async function fetchDocumentData(docId){
         let d = await getDoc(doc(db, 'users', auth.currentUser.uid, 'notes', docId));
         if (d.data()){
-            originalTitle.value = d.data().title;
             docTitle.value = d.data().title;
             editorData.value = d.data().data;
             docCategory.value = d.data().folder;
