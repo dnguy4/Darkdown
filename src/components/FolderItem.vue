@@ -187,7 +187,13 @@ font-weight: bold;
 .sidebar-button{
   justify-content:space-between;
 }
-.doc-button-cs, .doc-button-selected {
+.doc-button {
+  margin-left: 20px;
+  margin-right:10px;
+  justify-content:space-between;
+  text-align: center;
+}
+.doc-button-selected {
   margin-left: 20px;
   margin-right:10px;
   justify-content:space-between;
