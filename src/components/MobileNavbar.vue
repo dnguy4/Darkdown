@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="mobile-navbar-enable">
-            <button class="open-sidebar-button" @click="openSidebar"> Open Sidebar </button>
+            <!-- <button class="open-sidebar-button" @click="openSidebar"> Open Sidebar </button> -->
+            <button class="open-sidebar-button material-icons folder-more-icon" @click="openSidebar">
+          menu
+          </button>
         </div>
         <sidebar-mobile :sidebarOpen="sidebarToggle" @closeSidebar="openSidebar" @openModal="this.$emit('openModal')" @openNoteModal="sendModal"/>
     </div>

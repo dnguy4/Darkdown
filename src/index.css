@@ -35,7 +35,7 @@
 }
 
 .open-sidebar-button {
-    @apply text-rich-black p-1 m-1 rounded-md bg-opal hover:bg-rich-black hover:font-bold hover:text-opal duration-200 mr-5
+    @apply text-rich-black p-1 m-1 hover:font-bold hover:text-opal duration-200 mr-5
 }
 
 
