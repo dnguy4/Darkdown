@@ -10,7 +10,7 @@
         class="sidebar-button"
         @click="showDocs = !showDocs"
       >
-      <div class="names1">
+      <div class="truncate ... names1">
         {{ name }}
       </div>
       <div>
@@ -34,14 +34,14 @@
     <ul v-if="showDocs" class="py-2 space-y-2">
       <li v-for="docId in documents" :key="docId.id">
         <div v-if="docId.id == this.$route.params.doc">
-          <button type='button' @click="goTo(docId.id)" class="doc-button"><div>{{docId.title}}</div>
+          <button type='button' @click="goTo(docId.id)" class="truncate ... doc-button"><div class="truncate ... ">{{docId.title}}</div>
           <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
           delete
           </i></div>
           </button>
         </div>
         <div v-else>
-          <button type='button' @click="goTo(docId.id)" class="doc-button-selected"><div>{{docId.title}}</div>
+          <button type='button' @click="goTo(docId.id)" class="truncate ... doc-button-selected"><div class="truncate ... ">{{docId.title}}</div>
           <div><i @click.stop="deleteDocument(docId.id)" class="material-icons folder-more-icon">
           delete
           </i></div>
