@@ -35,6 +35,7 @@
 
 
     import {uploader} from './UploadAdapterBucket.vue';
+    import {indentTab} from './IndentTabs';
 
     const props = defineProps({
         sidebarOpen: Boolean,
@@ -44,7 +45,7 @@
     let editor = Editor
     let editorData = ref('<p>Content of the editor.</p>')
     let editorConfig = {
-        extraPlugins: [uploader],
+        extraPlugins: [uploader, indentTab],
         autosave: {
             waitingTime: 1000, //in ms
             save( editor ) {

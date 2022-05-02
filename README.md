@@ -22,7 +22,9 @@ CSCI 5117, Spring 2022, [assignment description](https://canvas.umn.edu/courses/
 **Describe the most challenging features you implemented
 (one sentence per bullet, maximum 4 bullets):**
 
-* Our Print View feature was intially a PDF export feature, but we reworked it after facing issues with CORS and dynamic styling.
+* Our Print View feature was intially a PDF export feature, but we reworked it after trying out 3 different
+  PDF library approaches and facing issues with CORS and inconsistent styling;
+  getting a good looking PDF was a lot harder than using the built-in browser print method.
 * Linking images to Firestorage and programmatically removing them involved making custom builds of our CKEditor and hand writing plugins.
 * Making the sidebar hide on mobile and appear as a pop-up was challenging, especially with 
 ignoring events on our editor in favor of the sidebar.
@@ -90,5 +92,8 @@ Please do not document required libraries (e.g., Vue, Vuefire, Firebase).**
 **If there's anything else you would like to disclose about how your project
 relied on external code, expertise, or anything else, please disclose that
 here:**
+
+CKEditor provided the live markdown rendering and the standard document editor functionality. CKEditor
+also supported image uploading, but we had to do some work to get it hooked up to Firestorage.
 
 ...

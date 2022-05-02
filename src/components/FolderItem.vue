@@ -57,7 +57,7 @@
 
 <script>
 import { auth, db, storage } from "@/firebaseConfig";
-import { collection, doc, getDoc, updateDoc, 
+import { collection, doc, getDoc, updateDoc,
   onSnapshot, where, query, getDocs, deleteDoc} from "firebase/firestore";
 import { ref as fsref, deleteObject } from "firebase/storage";
 
@@ -74,7 +74,7 @@ export default {
     onSnapshot(
       query(
         collection(db, "users", auth.currentUser.uid, "notes"),
-        where("folder", "==", this.name)
+        where("folder", "==", this.name),
       ),
       (dbData) => {
         let ids = [];
@@ -82,6 +82,7 @@ export default {
           ids.push({id: e.id, title:e.data().title});
         });
         this.documents = ids;
+        this.documents.sort((a, b) => {       return a.title.localeCompare(b.title)     })
       }
     );
   },
